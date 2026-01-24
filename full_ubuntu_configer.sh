@@ -1,5 +1,11 @@
 #!/bin/bash
+set -x
 set -e
+
+startup_cmd=gtop
+#this is only for rdisplay user
+
+
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${REDB} "
@@ -14,10 +20,28 @@ else
     echo "Error when checking for root user"
 fi
 
-apt-get update
-apt-get upgrade
-apt-get dist-upgrade
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get -y install npm nodejs
+npm install gtop -g
 
+useradd "rdisplay" -m -s /bin/rbash -c "executes cmd placed in users bash when logged" 
+
+echo "$startup_cmd" >> /home/rdisplay/.profile
+echo "$startup_cmd" >> /home/rdisplay/.profile
+
+chattr +i -R /home/rdisplay
+
+{
+echo "[Service]"
+echo "ExecStart="
+echo "ExecStart=-/sbin/agetty --noissue --autologin rdisplay %I $TERM Type=idle"
+} > /etc/systemd/system/getty@tty1.service.d/override.conf
+#rdisplay is a restriced account for displaying gtop on my tv
+
+
+mkdir -p /etc/systemd/system/getty@tty1.service.d/
 {
 echo "ChallengeResponseAuthentication no"
 echo "PasswordAuthentication no"
