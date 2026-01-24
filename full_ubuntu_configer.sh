@@ -53,3 +53,5 @@ echo "LoginGraceTime 1m"
 echo "sshd RESTART"
 
 service sshd restart
+
+reboot
