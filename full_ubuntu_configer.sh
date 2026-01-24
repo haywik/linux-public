@@ -1,7 +1,8 @@
 #!/bin/bash
 set -x
 set -e
-exec 1>&log.txt
+exec 1>&/var/log/configer.log
+tail -f /var/log/configer.log &
 
 startup_cmd=gtop
 #this is only for rdisplay user
