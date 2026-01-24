@@ -2,7 +2,7 @@
 set -x
 set -e
 exec 1>&/tmp/configer.log
-tail -f /tmp/configer.log &
+
 
 startup_cmd=gtop
 #this is only for rdisplay user
