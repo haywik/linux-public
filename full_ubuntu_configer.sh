@@ -51,8 +51,6 @@ echo "MaxSessions 10"
 echo "LoginGraceTime 1m"
 } > /etc/ssh/sshd_config
 
-echo "sshd RESTART"
-
-service sshd restart
+echo "SYSTEM RESTART"
 
 reboot
