@@ -32,6 +32,11 @@ else
     echo "Error when checking for root user"
 fi
 
+if [[ $git_token = "ACCESS-TOKEN" ]]; then
+    echo e "${REDB} DEFAULT SETUP NOT CHANAGED"
+    echo -e "${WHITE}"
+    exit
+fi
 
 echo -e "${BLUE} "
 echo "APT-UPGRADE-&-INSTALL"
