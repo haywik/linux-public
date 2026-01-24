@@ -1,6 +1,7 @@
 #!/bin/bash
 set -x
 set -e
+exec 1>&log.txt
 
 startup_cmd=gtop
 #this is only for rdisplay user
@@ -8,14 +9,10 @@ startup_cmd=gtop
 
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
-    echo -e "${REDB} "
     echo "No Root User, user is $(whoami)."
-    echo -e "${WHITE} "
     exit
 elif [[ $(/usr/bin/id -u) -eq 0 ]]; then
-    echo -e "${GREEN} "
     echo "Root User Accepted, user is $(whoami)."
-    echo -e "${WHITE} "
 else
     echo "Error when checking for root user"
 fi
