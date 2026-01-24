@@ -29,6 +29,8 @@ echo "$startup_cmd" >> /home/rdisplay/.profile
 
 chattr +i -R /home/rdisplay
 
+
+mkdir -p /etc/systemd/system/getty@tty1.service.d/
 {
 echo "[Service]"
 echo "ExecStart="
@@ -37,7 +39,6 @@ echo "ExecStart=-/sbin/agetty --noissue --autologin rdisplay %I $TERM Type=idle"
 #rdisplay is a restriced account for displaying gtop on my tv
 
 
-mkdir -p /etc/systemd/system/getty@tty1.service.d/
 {
 echo "ChallengeResponseAuthentication no"
 echo "PasswordAuthentication no"
