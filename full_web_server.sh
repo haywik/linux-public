@@ -2,7 +2,12 @@
 set -e
 set -x
 
-names=( "sub1.example.com" "sub2.example.com" "example.com" )
+exit
+#REMOVE THIS, this is to make sure you change the default configs. (mistake made before)
+
+
+domain="EXAMPLE"
+names=( "sub1.$domain.com" "sub2.$domain.com" "$domain.com" )
 names_port=( "9002" "9003" "9004" )
 
 git_user="GIT-USERNAME"
