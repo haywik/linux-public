@@ -1,5 +1,6 @@
 #!/bin/bash
 set -e
+set -x
 
 names=( "sub1.example.com" "sub2.example.com" "example.com" )
 names_port=( "9002" "9003" "9004" )
