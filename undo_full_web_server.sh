@@ -28,6 +28,8 @@ for i in ${names[@]}; do
     
     rm /etc/systemd/system/startup-$i.service
     rm  /etc/systemd/user/webA/startup-$i.service
+
+    sed -i '$i/I d' /etc/caddy/Caddyfile
     
 done
 
