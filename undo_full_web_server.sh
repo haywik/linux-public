@@ -4,7 +4,7 @@ exit
 #make sure the script was opened and the defualt configs where changed
 
 d="EXAMPLE"
-names=( "sub1.$d.com" "sub2.$d.com" "$d.com" )
+names=( "sub1.$d.com" )
 
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
@@ -18,8 +18,8 @@ fi
 
 for i in ${names[@]}; do
     groupdel $i
-    userdel gitter-$i
-    userdel runner-$i
+    userdel -f gitter-$i
+    userdel -f runner-$i
     rm -rf /home/$i
     systemctl disable startup-$i.service
     
