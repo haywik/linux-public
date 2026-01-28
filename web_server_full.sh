@@ -184,7 +184,8 @@ for i in ${names[@]}; do
 
     {
 		echo " "
-		echo "$i:8080{reverse_proxy localhost:${names_port[$e]}}" 
+		echo "$i:8080{reverse_proxy localhost:${names_port[$e]}"
+		echo "}"
     } >> /etc/caddy/Caddyfile
 
     systemctl reload caddy 
