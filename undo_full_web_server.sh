@@ -17,6 +17,9 @@ fi
 
 
 for i in ${names[@]}; do
+    killall -u gitter-$i
+    killall -u runner-$i
+
     groupdel $i
     userdel -f gitter-$i
     userdel -f runner-$i
