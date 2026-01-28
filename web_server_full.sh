@@ -159,7 +159,7 @@ for i in ${names[@]}; do
                 echo "Type=simple"
                 echo "User=runner-$i"
                 echo "Group=$i"
-                echo "Restart=on-failure"
+                echo "Restart=always"
                 echo "RestartSec=20"
 		        echo "TimeoutStartSec=10"
                 echo "ExecStart=/home/$i/venv/bin/python /home/$i/repo/wsgi.py"
@@ -185,7 +185,7 @@ for i in ${names[@]}; do
 
     {
 		echo " "
-		echo "$i:8080{reverse_proxy localhost:${names_port[$e]}"
+		echo "$i:8080 { reverse_proxy localhost:${names_port[$e]}"
 		echo "    }"
     } >> /etc/caddy/Caddyfile
 
