@@ -201,7 +201,7 @@ for i in ${names[@]}; do
         echo "$i STARTUP "
     echo -e "${WHITE} "
 
-    systemctl start startup-central.haywik.com
+    systemctl start startup-$i.service
 
     echo -e "${GREEN} "
         echo "$i Finished"
