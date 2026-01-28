@@ -138,10 +138,15 @@ for i in ${names[@]}; do
     chmod 500 -R /home/$i/auto
     chown gitter-$i:$i /home/$i/log/gitter.log
     chmod 600 -R /home/$i/log/gitter.log
+	chown gitter-$i:$i /home/$i/log/git.log
+    chmod 600 -R /home/$i/log/git.log
+	chown runner-$i:$i /home/$i/log/runner.log
+    chmod 600 -R /home/$i/log/gitter.log
 
     chmod 750 /home/$i/.
     chmod 750 /home/$i/repo/.
     chmod 750 /home/$i/venv/.  
+	chmod 750 -R /home/$i/repo/.git
 
 
     echo -e "${BLUE} "
