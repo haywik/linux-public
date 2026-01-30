@@ -1,0 +1,7 @@
+domain="EXAMPLE"
+names=( "sub1.$domain.com" "$domain.com" )
+names_port=( "9002" "9003" )
+
+git_user="GIT-USERNAME"
+git_token="ACCESS-TOKEN"
+git_url="https://$git_user:$git_token@github.com/$git_user/"
