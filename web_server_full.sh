@@ -125,17 +125,17 @@ for i in ${names[@]}; do
     echo "PERMISSIONS-FOR-$i"
     echo -e "${WHITE} "
 
-    chown 650 -R :$i /home/$i/
+    chown -R :$i /home/$i/
     chmod 750 /home/$i/.
     chmod 750 /home/$i/repo/.
-    chmod 750 /home/$i/venv/.  
+    chmod 650 /home/$i/venv/.  
 	chmod 750 -R /home/$i/repo/.git
 
     chown -R gitter-$i:$i /home/$i/
-    chmod 650 -R /home/$i/
+    chmod 750 -R /home/$i/
 
 	chown -R runner-$i:$i /home/$i/venv
-    chmod 650 -R /home/$i/venv
+    chmod 750 -R /home/$i/venv
     
     
 
