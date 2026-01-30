@@ -2,17 +2,7 @@
 set -e
 set -x
 
-exit
-#REMOVE THIS, this is to make sure you change the default configs. (mistake made before)
-
-
-domain="EXAMPLE"
-names=( "sub1.$domain.com" "sub2.$domain.com" "$domain.com" )
-names_port=( "9002" "9003" "9004" )
-
-git_user="GIT-USERNAME"
-git_token="ACCESS-TOKEN"
-git_url="https://$git_user:$git_token@github.com/$git_user/"
+source config.txt
 
 BLUE='\033[0;34m'
 WHITE='\033[0;37m'
