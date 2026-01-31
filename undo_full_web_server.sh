@@ -1,11 +1,7 @@
 set -x
-
-exit
 #make sure the script was opened and the defualt configs where changed
 
-d="EXAMPLE"
-names=( "sub1.$d.com" )
-
+source config.txt
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${REDB} "
