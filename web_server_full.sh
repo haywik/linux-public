@@ -84,16 +84,6 @@ for i in ${names[@]}; do
 
     date >> /home/$i/log/runner.log
     date >> /home/$i/log/gitter.log
-    
-
-    echo -e "${BLUE} "
-    echo "GIT-FOR-$i"
-    echo -e "${WHITE} "
-
-    git clone $git_url$i /home/$i/repo
-    echo """echo "GIT for $i" && cd /home/$i/repo >> /home/$i/log/git.log && git fetch $git_url$i && git reset --hard && git pull $git_url$i""" > /home/$i/auto/git.sh
-    bash /home/$i/auto/git.sh
-
 
     echo -e "${BLUE} "
     echo "VENV-SETUP"
@@ -115,21 +105,21 @@ for i in ${names[@]}; do
     echo "PERMISSIONS-FOR-$i"
     echo -e "${WHITE} "
 
-    chown -R :$i /home/$i/
-    chmod 750 /home/$i/.
-    chmod 750 /home/$i/repo/.
-    chmod 650 /home/$i/venv/.  
-	chmod 750 -R /home/$i/repo/.git
-
-    chown -R gitter-$i:$i /home/$i/
-    chmod 750 -R /home/$i/
-
+    # chowm --->
+	chown -R gitter-$i:$i /home/$i/
 	chown -R runner-$i:$i /home/$i/venv
-    chmod 750 -R /home/$i/venv
-    
+    #for runner --->
+
+    chmod 650 -R /home/$i/venv/  
+    chmod 750 -R /home/$i/    
     
 
+    echo -e "${BLUE} "
+    echo "GIT-FOR-$i"
+    echo -e "${WHITE} "
     
+    echo """echo "GIT for $i" && cd /home/$i/repo >> /home/$i/log/git.log && git fetch $git_url$i && git reset --hard && git pull $git_url$i""" > /home/$i/auto/git.sh
+    runuser -l gitter-$i -c 'bash /home/$i/auto/git.sh'
 
 
     echo -e "${BLUE} "
