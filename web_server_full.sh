@@ -75,12 +75,15 @@ for i in ${names[@]}; do
     useradd "runner-$i" --system -M -N -d /home/$i -G $i
     useradd "gitter-$i" --system -M -N -d /home/$i -G $i
 
-
-    mkdir -p /home/$i/repo
-    mkdir -p /home/$i/venv
-    mkdir -p /home/$i/auto
+    chown -R gitter-$i:$i /home/$i/*
+    chmod -R 770 /home/$i/*
+	
+    runuser -l gitter-$i -c mkdir -p /home/$i/repo
+    runuser -l runner-$i -c mkdir -p /home/$i/venv
+    runuser -l gitter-$i -c mkdir -p /home/$i/auto
+	
     mkdir -p /etc/systemd/user/webA
-    mkdir -p /home/$i/log    
+    runuser -l gitter-$i -c mkdir -p /home/$i/log    
 
     date >> /home/$i/log/runner.log
     date >> /home/$i/log/gitter.log
@@ -102,25 +105,24 @@ for i in ${names[@]}; do
 
 
     echo -e "${BLUE} "
-    echo "PERMISSIONS-FOR-$i"
-    echo -e "${WHITE} "
-
-    # chowm --->
-	chown -R gitter-$i:$i /home/$i/
-	chown -R runner-$i:$i /home/$i/venv
-    #for runner --->
-
-    chmod 650 -R /home/$i/venv/  
-    chmod 750 -R /home/$i/    
-    
-
-    echo -e "${BLUE} "
     echo "GIT-FOR-$i"
     echo -e "${WHITE} "
     
     echo """echo "GIT for $i" && cd /home/$i/repo >> /home/$i/log/git.log && git fetch $git_url$i && git reset --hard && git pull $git_url$i""" > /home/$i/auto/git.sh
     runuser -l gitter-$i -c 'bash /home/$i/auto/git.sh'
 
+
+    echo -e "${BLUE} "
+    echo "PERMISSIONS-FOR-$i"
+    echo -e "${WHITE} "
+
+    # chowm --->
+	chown -R runner-$i:$i /home/$i/venv
+    #for runner --->
+
+    chmod 650 -R /home/$i/venv/*  
+    chmod 750 -R /home/$i/repo/*
+	
 
     echo -e "${BLUE} "
     echo "SYSTEMD-RUNNER-$i"
