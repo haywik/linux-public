@@ -44,6 +44,7 @@ User=$user
 Type=simple
 RestartSec=20
 TimoutStartSec=10
+
 [Install]
 WantedBy=multi-user.target
 EOL
