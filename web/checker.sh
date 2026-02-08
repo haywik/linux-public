@@ -14,12 +14,14 @@ for i in ${names[@]}; do
     done
     curl -s localhost:${names_port[$e]}/home | head -5
 
+    echo "updating the git"
+    runuser -l gitter-$i -c "bash /home/$i/auto/git.sh"
+
     echo "doing systemtl stuff"
 	systemctl restart startup-$i --no-pager
     systemctl status startup-$i --no-pager
 
-    echo "running additonal cmds manually as domain user"
-    runuser -l gitter-$i -c "bash /home/$i/auto/git.sh"
+    
     #runuser -l runner-$i -c "/home/$i/venv/bin/python /home/$i/repo/wsgi.py"
 
 done
