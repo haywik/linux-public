@@ -75,6 +75,8 @@ for i in ${names[@]}; do
     useradd "runner-$i" --system -M -N -d /home/$i -G $i
     useradd "gitter-$i" --system -M -N -d /home/$i -G $i
 
+    mkdir /home/$i
+
     chown -R gitter-$i:$i /home/$i/*
     chmod -R 770 /home/$i/*
 	
