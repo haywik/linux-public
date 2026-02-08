@@ -42,7 +42,7 @@ TimeoutStartSec=10
 WantedBy=multi-user.target
 EOL
 
-sudo mv monerohaywik_miner.service /etc/systemd/system/$service
+sudo mv $service /etc/systemd/system/$service
 sudo killall xmrig
 sudo systemctl daemon-reload
 sudo systemctl enable $service
