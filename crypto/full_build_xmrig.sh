@@ -43,7 +43,7 @@ CPUWeight=1
 User=$user
 Type=simple
 RestartSec=20
-TimoutStartSec=10
+TimeoutStartSec=10
 
 [Install]
 WantedBy=multi-user.target
