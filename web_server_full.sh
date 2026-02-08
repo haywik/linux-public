@@ -80,9 +80,9 @@ for i in ${names[@]}; do
     chown -R gitter-$i:$i /home/$i/
     chmod -R 770 /home/$i/
 	
-    runuser -l gitter-$i -c mkdir -p /home/$i/repo
-    runuser -l runner-$i -c mkdir -p /home/$i/venv
-    runuser -l gitter-$i -c mkdir -p /home/$i/auto
+    runuser -l gitter-$i -c 'mkdir -p /home/$i/repo'
+    runuser -l runner-$i -c 'mkdir -p /home/$i/venv'
+    runuser -l gitter-$i -c 'mkdir -p /home/$i/auto'
 	
     mkdir -p /etc/systemd/user/webA
     runuser -l gitter-$i -c 'mkdir -p /home/$i/log'    
