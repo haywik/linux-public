@@ -6,8 +6,8 @@ host=$(hostname)
 user=$(whoami)
 dir_set=/home/$user/monero-haywik
 
-sudo apt-get update && sudo apt-get upgrade
-sudo apt-get install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+sudo apt-get -y update && sudo apt-get upgrade
+sudo apt-get -y install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
 
 echo "Removing any old scripts"
 sudo killall xmrig
