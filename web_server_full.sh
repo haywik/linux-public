@@ -52,6 +52,7 @@ else
     echo "    http_port 8080" >> /etc/caddy/Caddyfile
     echo "}" >> /etc/caddy/Caddyfile
     systemctl reload caddy
+	sleep 2
 fi
 
 
@@ -95,6 +96,7 @@ for i in ${names[@]}; do
     echo -e "${WHITE} "
 
 	runuser -l gitter-$i -c "git clone $git_url$i /home/$i/repo"
+	sleep 2
     echo """echo "GIT for $i" && cd /home/$i/repo >> /home/$i/log/git.log && git fetch $git_url$i && git reset --hard && git pull $git_url$i""" > /home/$i/auto/git.sh
     runuser -l gitter-$i -c "bash /home/$i/auto/git.sh"
 
@@ -105,6 +107,7 @@ for i in ${names[@]}; do
     runuser -l runner-$i -c "python3 -m venv /home/$i/venv"	
 
     /home/$i/venv/bin/python -m pip install -r /home/$i/repo/depend.txt
+    sleep 2
 
     echo -e "${BLUE} "
     echo "CRON-FILES-$i"
@@ -123,7 +126,7 @@ for i in ${names[@]}; do
 
     chmod 540 -R /home/$i/venv/*  
     chmod 750 -R /home/$i/repo/*
-	
+	chgrp -R $i /home/$i
 
     echo -e "${BLUE} "
     echo "SYSTEMD-RUNNER-$i"
@@ -149,9 +152,13 @@ for i in ${names[@]}; do
                 echo "WantedBy=multi-user.target"
 
         } >> /etc/systemd/user/webA/startup-$i.service
+
+	sleep 2
+	
     systemctl enable /etc/systemd/user/webA/startup-$i.service
 
-
+	sleep 3	
+    
     echo -e "${BLUE} "
     echo "CADDY"
     echo -e "${WHITE} "
@@ -170,15 +177,17 @@ for i in ${names[@]}; do
 		echo "    }"
     } >> /etc/caddy/Caddyfile
 
+    sleep 1
     systemctl reload caddy 
-
+    sleep 2
 
     echo -e "${GREEN} "
         echo "$i STARTUP "
     echo -e "${WHITE} "
 
+    sleep 1
     systemctl start startup-$i.service
-
+    sleep 5
     echo -e "${GREEN} "
         echo "$i Finished"
     echo -e "${WHITE} "
