@@ -94,7 +94,7 @@ for i in ${names[@]}; do
     echo "GIT-FOR-$i"
     echo -e "${WHITE} "
 
-	runuser -l gitter-$i -c "git clone $git_url$i"
+	runuser -l gitter-$i -c "git clone $git_url$i /home/$i/repo"
     echo """echo "GIT for $i" && cd /home/$i/repo >> /home/$i/log/git.log && git fetch $git_url$i && git reset --hard && git pull $git_url$i""" > /home/$i/auto/git.sh
     runuser -l gitter-$i -c "bash /home/$i/auto/git.sh"
 
