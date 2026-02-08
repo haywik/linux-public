@@ -1,7 +1,7 @@
 #!/bin/bash
 
 source config.txt
-se -x
+set -x
 
 for i in ${names[@]}; do
     echo "checking $i"
