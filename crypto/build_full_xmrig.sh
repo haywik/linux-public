@@ -1,20 +1,19 @@
 #!/bin/bash
 set -e
-set -x
 
 source wallet.key
 host=$(hostname)
 user=$(whoami)
 dir_set=/home/$user/monero-haywik
 
-apt-get update && sudo apt-get upgrade
-apt-get install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+sudo apt-get update && sudo apt-get upgrade
+sudo apt-get install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
 
 echo "Removing any old scripts"
-killall xmrig
-systemctl stop monerohaywik_miner.service
-systemctl disable monerohaywik_miner.service
-rm /etc/systemd/system/monerohaywik_miner.service
+sudo killall xmrig
+sudo systemctl stop monerohaywik_miner.service
+sudo ystemctl disable monerohaywik_miner.service
+sudo rm /etc/systemd/system/monerohaywik_miner.service
 
 
 rm -rf dir_set/miner-haywik
@@ -46,9 +45,9 @@ echo "[Install]"
 echo "WantedBy=multi-user.target"
 } > /etc/systemd/system/monerohaywik_miner.service
 
-killall xmrig
-systemctl daemon-reload
-systemctl enable monerohaywik_miner.service
-systemctl start monerohaywik_miner.service
+sudo killall xmrig
+sudo systemctl daemon-reload
+sudo systemctl enable monerohaywik_miner.service
+sudo systemctl start monerohaywik_miner.service
 
 
