@@ -36,7 +36,7 @@ Description=Monero miner service
 
 [Service]
 WorkingDirectory=$dir_set
-ExecStart=$dir_set/xmrig/run.sh
+ExecStart=bash $dir_set/xmrig/run.sh
 Restart=always
 nice=19
 CPUWeight=1
