@@ -35,13 +35,15 @@ cat > monerohaywik_miner.service <<EOL
 Description=Monero miner service
 
 [Service]
-ExecStart=$dir_set/xmrig/run.sh
+WorkingDirectory=$dir_set
+ExecStart=xmrig/run.sh
 Restart=always
 nice=19
 CPUWeight=1
 User=$user
-ype=simple
-
+Type=simple
+RestartSec=20
+TimoutStartSec=10
 [Install]
 WantedBy=multi-user.target
 EOL
