@@ -15,7 +15,8 @@ for i in ${names[@]}; do
     curl -s localhost:${names_port[$e]}/home | head -5
 
     echo "doing systemtl stuff"
-    systemctl status startup-$i
+	systemctl restart startup-$i --no-pager
+    systemctl status startup-$i --no-pager
 
     echo "running additonal cmds manually as domain user"
     runuser -l gitter-$i -c "bash /home/$i/auto/git.sh"
