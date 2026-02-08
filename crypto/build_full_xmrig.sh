@@ -19,8 +19,9 @@ rm /etc/systemd/system/monerohaywik_miner.service
 
 rm -rf dir_set/miner-haywik
 
+cd $dir_set
 git clone https://github.com/xmrig/xmrig.git
-cd $dir_set/xmrig
+cd xmrig
 mkdir build
 cd build
 cmake ..
