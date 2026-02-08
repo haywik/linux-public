@@ -83,7 +83,7 @@ for i in ${names[@]}; do
     runuser -l gitter-$i -c mkdir -p /home/$i/auto
 	
     mkdir -p /etc/systemd/user/webA
-    runuser -l gitter-$i -c mkdir -p /home/$i/log    
+    runuser -l gitter-$i -c 'mkdir -p /home/$i/log'    
 
     date >> /home/$i/log/runner.log
     date >> /home/$i/log/gitter.log
@@ -92,7 +92,7 @@ for i in ${names[@]}; do
     echo "VENV-SETUP"
     echo -e "${WHITE} "
 
-    python3 -m venv /home/$i/venv	
+    runuser -l runner-$i -c 'python3 -m venv /home/$i/venv'	
 
     /home/$i/venv/bin/python -m pip install -r /home/$i/repo/depend.txt
 
@@ -100,7 +100,7 @@ for i in ${names[@]}; do
     echo "CRON-FILES-$i"
     echo -e "${WHITE} "
 
-    echo "*/10 * * * * /home/$i/auto/git.sh" > /home/$i/auto/cron_file.txt
+    runuser -l gitter-$i -c 'echo "*/10 * * * * /home/$i/auto/git.sh" > /home/$i/auto/cron_file.txt'
     crontab -u gitter-$i /home/$i/auto/cron_file.txt
 
 
@@ -120,7 +120,7 @@ for i in ${names[@]}; do
 	chown -R runner-$i:$i /home/$i/venv
     #for runner --->
 
-    chmod 650 -R /home/$i/venv/*  
+    chmod 540 -R /home/$i/venv/*  
     chmod 750 -R /home/$i/repo/*
 	
 
