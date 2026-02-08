@@ -7,8 +7,8 @@ host=$(hostname)
 user=$(whoami)
 dir_set=/home/$user/monero-haywik
 
-sudo apt-get update && sudo apt-get upgrade
-sudo apt-get install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
+apt-get update && sudo apt-get upgrade
+apt-get install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
 
 echo "Removing any old scripts"
 killall xmrig
@@ -46,9 +46,9 @@ echo "[Install]"
 echo "WantedBy=multi-user.target"
 } > /etc/systemd/system/monerohaywik_miner.service
 
-sudo killall xmrig 2>/dev/null
-sudo systemctl daemon-reload
-sudo systemctl enable monerohaywik_miner.service
-sudo systemctl start monerohaywik_miner.service
+killall xmrig
+systemctl daemon-reload
+systemctl enable monerohaywik_miner.service
+systemctl start monerohaywik_miner.service
 
 
