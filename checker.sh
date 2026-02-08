@@ -15,7 +15,6 @@ for i in ${names[@]}; do
     curl -s localhost:${names_port[$e]}/home | head -5
 
     echo "doing systemtl stuff"
-    systemctl restart startup-$i
     systemctl status startup-$i
 
     echo "running additonal cmds manually as domain user"
