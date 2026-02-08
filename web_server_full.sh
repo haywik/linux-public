@@ -91,6 +91,13 @@ for i in ${names[@]}; do
     date >> /home/$i/log/gitter.log
 
     echo -e "${BLUE} "
+    echo "GIT-FOR-$i"
+    echo -e "${WHITE} "
+    
+    echo """echo "GIT for $i" && cd /home/$i/repo >> /home/$i/log/git.log && git fetch $git_url$i && git reset --hard && git pull $git_url$i""" > /home/$i/auto/git.sh
+    runuser -l gitter-$i -c "bash /home/$i/auto/git.sh"
+
+    echo -e "${BLUE} "
     echo "VENV-SETUP"
     echo -e "${WHITE} "
 
@@ -104,15 +111,6 @@ for i in ${names[@]}; do
 
     runuser -l gitter-$i -c "echo "*/10 * * * * /home/$i/auto/git.sh" > /home/$i/auto/cron_file.txt"
     crontab -u gitter-$i /home/$i/auto/cron_file.txt
-
-
-    echo -e "${BLUE} "
-    echo "GIT-FOR-$i"
-    echo -e "${WHITE} "
-    
-    echo """echo "GIT for $i" && cd /home/$i/repo >> /home/$i/log/git.log && git fetch $git_url$i && git reset --hard && git pull $git_url$i""" > /home/$i/auto/git.sh
-    runuser -l gitter-$i -c "bash /home/$i/auto/git.sh"
-
 
     echo -e "${BLUE} "
     echo "PERMISSIONS-FOR-$i"
