@@ -77,8 +77,8 @@ for i in ${names[@]}; do
 
     mkdir /home/$i
 
-    chown -R gitter-$i:$i /home/$i/*
-    chmod -R 770 /home/$i/*
+    chown -R gitter-$i:$i /home/$i/
+    chmod -R 770 /home/$i/
 	
     runuser -l gitter-$i -c mkdir -p /home/$i/repo
     runuser -l runner-$i -c mkdir -p /home/$i/venv
