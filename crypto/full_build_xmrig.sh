@@ -16,7 +16,7 @@ sudo ystemctl disable monerohaywik_miner.service
 sudo rm /etc/systemd/system/monerohaywik_miner.service
 
 
-rm -rf dir_set/miner-haywik
+rm -rf $dir_set/miner-haywik
 mkdir -p /home/$user/monero-haywik
 cd $dir_set
 git clone https://github.com/xmrig/xmrig.git
