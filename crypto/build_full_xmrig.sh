@@ -27,8 +27,8 @@ cd build
 cmake ..
 make
 
-cd ..
-echo "nice -n 19 ./build/xmrig -o gulf.moneroocean.stream:10001 -u $address -p $host"
+cd $dir_set
+echo "nice -n 19 $dir_set/xmrig/build/xmrig -o gulf.moneroocean.stream:10001 -u $address -p $host" > run.sh
 
 { 
 echo "[Unit]" 
