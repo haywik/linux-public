@@ -20,6 +20,6 @@ for i in ${names[@]}; do
 
     echo "running additonal cmds manually as domain user"
     runuser -l gitter-$i -c "bash /home/$i/auto/git.sh"
-    runuser -l runner-$i-c "/home/$i/venv/bin/python /home/$i/repo/wsgi.py"
+    #runuser -l runner-$i -c "/home/$i/venv/bin/python /home/$i/repo/wsgi.py"
 
 done
