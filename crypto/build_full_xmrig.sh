@@ -6,7 +6,6 @@ source wallet.key
 host=$(hostname)
 user=$(whoami)
 dir_set=/home/$user/monero-haywik
-mkdir -p /home/$user/monero-haywik
 
 sudo apt-get update && sudo apt-get upgrade
 sudo apt-get install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
@@ -17,8 +16,9 @@ systemctl stop monerohaywik_miner.service
 systemctl disable monerohaywik_miner.service
 rm /etc/systemd/system/monerohaywik_miner.service
 
-rm -rf dir_set/miner-haywik
 
+rm -rf dir_set/miner-haywik
+mkdir -p /home/$user/monero-haywik
 cd $dir_set
 git clone https://github.com/xmrig/xmrig.git
 cd xmrig
