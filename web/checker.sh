@@ -19,6 +19,7 @@ for i in ${names[@]}; do
 
     echo "doing systemtl stuff"
 	systemctl restart startup-$i --no-pager
+	sleep 5
     systemctl status startup-$i --no-pager
 
     
