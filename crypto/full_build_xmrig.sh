@@ -29,22 +29,24 @@ make
 cd $dir_set
 echo "nice -n 19 $dir_set/xmrig/build/xmrig -o gulf.moneroocean.stream:10001 -u $address -p $host" > run.sh
 
-{ 
-sudo echo "[Unit]" 
-sudo echo "Description=Monero miner service"
-sudo echo " "
-sudo echo "[Service]"
-sudo echo "ExecStart=$dir_set/xmrig/run.sh"
-sudo echo "Restart=always"
-sudo echo "Nice=19"
-sudo echo "CPUWeight=1"
-sudo echo "User=$user"
-sudo echo "Type=simple"
-sudo echo " "
-sudo echo "[Install]"
-sudo echo "WantedBy=multi-user.target"
-} > /etc/systemd/system/monerohaywik_miner.service
 
+cat > monerohaywik_miner.service <<EOL
+[Unit]
+Description=Monero miner service
+
+[Service]
+ExecStart=$dir_set/xmrig/run.sh
+Restart=always
+nice=19
+CPUWeight=1
+User=$user
+ype=simple
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+sudo mv monerohaywik_miner.service /etc/systemd/system/monerohaywik_miner.service
 sudo killall xmrig
 sudo systemctl daemon-reload
 sudo systemctl enable monerohaywik_miner.service
