@@ -16,14 +16,14 @@ sudo systemctl stop $service
 sudo systemctl disable $service
 sudo rm /etc/systemd/system/$service
 
-mkdir -p $dir_set
-cd $dir_set
+mkdir -p $dir_set/files
+cd $dir_set/files
 
 wget https://github.com/develsoftware/GMinerRelease/releases/download/3.44/gminer_3_44_linux64.tar.xz
 tar -xf gminer_3_44_linux64.tar.xz
+cd ..
 
-
-echo "nice -n 19 $dir_set/miner --algo etchash --server gulf.moneroocean.stream:10001 --user $address --pass $host" > run.sh
+echo "nice -n 19 $dir_set/files/miner --algo etchash --server gulf.moneroocean.stream:10001 --user $address --pass $host" > run.sh
 
 
 cat > $service <<EOL
@@ -46,7 +46,7 @@ WantedBy=multi-user.target
 EOL
 
 sudo mv $service /etc/systemd/system/$service
-sudo killall xmrig
+sudo killall gminer
 sudo systemctl daemon-reload
 sudo systemctl enable $service
 sudo systemctl start $service
