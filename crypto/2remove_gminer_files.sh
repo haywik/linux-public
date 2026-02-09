@@ -8,4 +8,5 @@ rm public.gpg
 rm readme.txt
 rm run.sh
 rm sample_config.txt
+rm miner.sig
 ls
