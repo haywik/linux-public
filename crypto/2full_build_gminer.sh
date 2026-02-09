@@ -17,7 +17,7 @@ sudo systemctl disable $service
 sudo rm /etc/systemd/system/$service
 
 mkdir -p $dir_set
-cd $dir_Set
+cd $dir_set
 
 wget https://github.com/develsoftware/GMinerRelease/releases/download/3.44/gminer_3_44_linux64.tar.xz
 tar -xf gminer_3_44_linux64.tar.xz
