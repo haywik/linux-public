@@ -4,6 +4,12 @@ set -x
 source wallet.key
 host=$(hostname)
 user=$(whoami)
+
+if [ $user -eq "root ]; then
+    echo "Dont run this script as root"
+fi
+
+
 dir_set=/home/$user/monero-haywik
 apt-get update && sudo apt-get upgrade
 apt-get install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
