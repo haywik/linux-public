@@ -7,7 +7,7 @@ user=$(whoami)
 dir_set=$HOME/monero-haywik
 service="monerohaywik_miner.service"
 
-if [ $user -eq "root ]; then
+if [ $user -eq "root" ]; then
     echo "Dont run this script as root"
 fi
 
