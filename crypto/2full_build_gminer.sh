@@ -4,13 +4,16 @@ set -x
 source wallet.key
 host=$(hostname)
 user=$(whoami)
-dir_set=/home/$user/gminer-haywik
+dir_set=$HOME/gminer-haywik
 service=gminerhaywik_miner.service
+
+sudo apt-get -y update && sudo apt-get upgrade
+sudo apt-get -y install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev tar cat
 
 echo "Removing any old scripts"
 sudo killall gminer
 sudo systemctl stop $service
-sudo ystemctl disable $service
+sudo systemctl disable $service
 sudo rm /etc/systemd/system/$service
 
 mkdir -p $dir_set
