@@ -32,8 +32,8 @@ cmake ..
 make
 
 cd $dir_set
-echo "" > ./xmrig/build/xmrig.log
-echo "nice -n 19 $dir_set/xmrig/build/xmrig -o gulf.moneroocean.stream:10001 -u $address -p $host" --log-file ./xmrig.log > run.sh
+echo "creation" >> $dir_set/xmrig/build/xmrig.log
+echo "nice -n 19 $dir_set/xmrig/build/xmrig -o gulf.moneroocean.stream:10001 -u $address -p $host --log-file $dir_set/xmrig/build/xmrig.log" > run.sh
 
 
 cat > $service <<EOL
