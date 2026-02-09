@@ -10,6 +10,9 @@ GREEN='\033[0;32m'
 REDB='\033[0;41m'
 
 
+name_base="web-haywik"
+dir_base="/opt/$name_base"
+
 echo -e "${BLUE} "
 echo "ROOT-CHECK"
 echo -e "${WHITE} "
@@ -62,6 +65,7 @@ for i in ${names[@]}; do
     echo "Start of $i"
     echo -e "${WHITE} "
 
+    dir=$dir_base"/$i"
 
     if id "gitter-$i" >/dev/null 2>&1; then
         echo -e "${REDB} User already exists, skipping current user"
@@ -71,25 +75,25 @@ for i in ${names[@]}; do
         echo "USER DOESNT EXIST - good"
     fi
 
+    mkdir -p $dir
 
     groupadd $i
-    useradd "runner-$i" --system -M -N -d /home/$i -G $i
-    useradd "gitter-$i" --system -M -N -d /home/$i -G $i
+    useradd "runner-$i" --system -M -N -d $dir -G $i
+    useradd "gitter-$i" --system -M -N -d $dir -G $i
 
-    mkdir /home/$i
-
-    chown -R gitter-$i:$i /home/$i/
-    chmod -R 770 /home/$i/
+    
+    chown -R gitter-$i:$i $dir
+    chmod -R 770 $dir
 	
-    runuser -l gitter-$i -c "mkdir -p /home/$i/repo"
-    runuser -l runner-$i -c "mkdir -p /home/$i/venv"
-    runuser -l gitter-$i -c "mkdir -p /home/$i/auto"
+    runuser -l gitter-$i -c "mkdir -p $dir/repo"
+    runuser -l runner-$i -c "mkdir -p $dir/venv"
+    runuser -l gitter-$i -c "mkdir -p $dir/auto"
 	
-    mkdir -p /etc/systemd/user/webA
-    runuser -l gitter-$i -c "mkdir -p /home/$i/log"    
+    mkdir -p /etc/systemd/user/
+    runuser -l gitter-$i -c "mkdir -p $dir/log"    
 
-    date >> /home/$i/log/runner.log
-    date >> /home/$i/log/gitter.log
+    date >> $dir/log/runner.log
+    date >> $dir/log/gitter.log
 
     echo -e "${BLUE} "
     echo "GIT-FOR-$i"
