@@ -10,7 +10,7 @@ if [ $user -eq "root ]; then
 fi
 
 
-dir_set=/home/$user/monero-haywik
+dir_set=$HOME/monero-haywik
 apt-get update && sudo apt-get upgrade
 apt-get install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev
 
