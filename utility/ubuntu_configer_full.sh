@@ -39,17 +39,18 @@ echo "ExecStart=-/sbin/agetty --noissue --autologin rdisplay %I $TERM Type=idle"
 #rdisplay is a restriced account for displaying gtop on my tv
 
 
-{
-echo "ChallengeResponseAuthentication no"
-echo "PasswordAuthentication no"
-echo "PubkeyAuthentication yes"
-echo "PermitRootLogin no"
-echo "UsePAM yes"
-echo "StrictModes yes"
-echo "MaxAuthTries 5"
-echo "MaxSessions 10"
-echo "LoginGraceTime 1m"
-} > /etc/ssh/sshd_config
+cat > sshd_config << EOL
+ChallengeResponseAuthentication no
+PasswordAuthentication no
+PubkeyAuthentication yes
+PermitRootLogin no
+UsePAM yes
+StrictModes yes
+MaxAuthTries 5
+MaxSessions 10
+LoginGraceTime 1m
+EOL
+mv sshd_config /etc/ssh/sshd_config
 
 echo "SYSTEM RESTART"
 
