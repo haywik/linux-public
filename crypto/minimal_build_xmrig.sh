@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 
-source wallet.key
+address=$(cat wallet.key)
 host=$(hostname)
 user=$(whoami)
 
