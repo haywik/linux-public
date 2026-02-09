@@ -19,7 +19,7 @@ fi
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-apt-get -y install npm nodejs
+apt-get -y install npm nodejs openssh-server
 npm install gtop -g
 
 useradd "rdisplay" -m -s /bin/rbash -c "executes cmd placed in users bash when logged" 
