@@ -24,7 +24,7 @@ wget https://github.com/develsoftware/GMinerRelease/releases/download/3.44/gmine
 tar -xf gminer_3_44_linux64.tar.xz
 cd ..
 
-echo "nice -n 19 $dir_set/files/miner --algo etchash --server gulf.moneroocean.stream:10001 --user $address --pass $host" > run.sh
+echo "nice -n 19 $dir_set/files/miner --algo etchash --server gulf.moneroocean.stream:10128 --user $address --pass $host" > run.sh
 
 
 cat > $service <<EOL
