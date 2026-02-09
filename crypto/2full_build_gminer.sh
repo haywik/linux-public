@@ -6,6 +6,7 @@ host=$(hostname)
 user=$(whoami)
 dir_set=$HOME/gminer-haywik
 service=gminerhaywik_miner.service
+address=$(cat wallet.key)
 
 sudo apt-get -y update && sudo apt-get -y upgrade
 sudo apt-get -y install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev tar cat
