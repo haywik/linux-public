@@ -173,7 +173,7 @@ EOL
 
     cat > $dir/auto/caddy_config.txt << EOL
 	
-$i:8080 { reverse_proxy localhost:${names_port[$e]}"
+$i:8080 { reverse_proxy localhost:${names_port[$e]}
 }
 EOL
 	cat $dir/auto/caddy_config.txt >> /etc/caddy/Caddyfile 
