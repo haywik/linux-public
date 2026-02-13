@@ -5,3 +5,14 @@ names_port=( "9002" "9003" )
 git_user="GIT-USERNAME"
 git_token="ACCESS-TOKEN"
 git_url="https://$git_user:$git_token@github.com/$git_user/"
+
+
+
+#----SYSTEM CONFIGS----
+BLUE='\033[0;34m'
+WHITE='\033[0;37m'
+GREEN='\033[0;32m'
+REDB='\033[0;41m'
+
+name_base="web-haywik"
+dir_base="/opt/$name_base"
