@@ -5,5 +5,5 @@ set -x
 
 for i in ${names[@]}; do
     echo "Loop for $i"
-    sudo runuser -u "gitter-$i" -c "bash $dir/auto/git.sh"
+    sudo runuser -l "gitter-$i" -c "bash $dir/auto/git.sh"
 done
