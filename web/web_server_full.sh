@@ -66,8 +66,9 @@ for i in ${names[@]}; do
     echo -e "${WHITE} "
 
     dir=$dir_base"/$i"
+	service_name="startup-$i.service"
 
-    if id "gitter-$i" >/dev/null 2>&1; then
+	if id "gitter-$i" >/dev/null 2>&1; then
         echo -e "${REDB} User already exists, skipping current user"
         echo -e "${WHITE}"
         continue
@@ -99,67 +100,70 @@ for i in ${names[@]}; do
     echo "GIT-FOR-$i"
     echo -e "${WHITE} "
 
-	runuser -l gitter-$i -c "git clone $git_url$i /home/$i/repo"
+	runuser -l gitter-$i -c "git clone $git_url$i $dir/repo"
 	sleep 2
-    echo """echo "GIT for $i" && cd /home/$i/repo >> /home/$i/log/git.log && git fetch $git_url$i && git reset --hard && git pull $git_url$i""" > /home/$i/auto/git.sh
-    runuser -l gitter-$i -c "bash /home/$i/auto/git.sh"
+    echo """echo "GIT for $i" && cd $dir/repo >> $dir/log/git.log && git fetch $git_url$i && git reset --hard && git pull $git_url$i""" > $dir/auto/git.sh
+	runuse -l gitter-$i -c "crontab $dir/auto/git.sh"
+	sleep 1
+    runuser -l gitter-$i -c "bash $dir/auto/git.sh"
 
     echo -e "${BLUE} "
     echo "VENV-SETUP"
     echo -e "${WHITE} "
 
-    runuser -l runner-$i -c "python3 -m venv /home/$i/venv"	
+    runuser -l runner-$i -c "python3 -m venv $dir/venv"	
 
-    /home/$i/venv/bin/python -m pip install -r /home/$i/repo/depend.txt
+    $dir/venv/bin/python -m pip install -r $dir/repo/depend.txt
     sleep 2
 
     echo -e "${BLUE} "
     echo "CRON-FILES-$i"
     echo -e "${WHITE} "
 
-    runuser -l gitter-$i -c "echo */10 * * * * /home/$i/auto/git.sh > /home/$i/auto/cron_file.txt"
-    crontab -u gitter-$i /home/$i/auto/cron_file.txt
+    runuser -l gitter-$i -c "echo */10 * * * * $dir/auto/git.sh > $dir/auto/cron_file.txt"
+    crontab -u gitter-$i $dir/auto/cron_file.txt
 
     echo -e "${BLUE} "
     echo "PERMISSIONS-FOR-$i"
     echo -e "${WHITE} "
 
     # chowm --->
-	chown -R runner-$i:$i /home/$i/venv
+	chown -R runner-$i:$i $dir/venv
     #for runner --->
 
-    chmod 540 -R /home/$i/venv/*  
-    chmod 750 -R /home/$i/repo/*
-	chgrp -R $i /home/$i
+    chmod 540 -R $dir/venv/*  
+    chmod 750 -R $dir/repo/*
+	chgrp -R $i $dir
 
     echo -e "${BLUE} "
     echo "SYSTEMD-RUNNER-$i"
     echo -e "${WHITE} "
 
-    {
-                echo "[Unit]"
-                echo "Description=$i wsgi.py auto startup, made on $date"
-		echo "Wants=network-online.target"
-		echo "After=network-online.target"
-                echo " "
-                echo "[Service]"
-				echo "WorkingDirectory=/home/$i/repo"
-                echo "Type=simple"
-                echo "User=runner-$i"
-                echo "Group=$i"
-                echo "Restart=always"
-                echo "RestartSec=20"
-		        echo "TimeoutStartSec=10"
-                echo "ExecStart=/home/$i/venv/bin/python /home/$i/repo/wsgi.py"
-		echo " "
-		echo "[Install]"
-                echo "WantedBy=multi-user.target"
+    cat > $dir/auto/$service_name << EOL
+[Unit]
+Description=$i wsgi.py auto startup, made on $date
+Wants=network-online.target
+After=network-online.target
 
-        } >> /etc/systemd/user/webA/startup-$i.service
+[Service]
+WorkingDirectory=$dir/repo
+Type=simple
+User=runner-$i
+Group=$i
+Restart=always
+RestartSec=20
+TimeoutStartSec=10
+ExecStart=$dir/venv/bin/python $dir/repo/wsgi.py
+
+[Install]
+WantedBy=multi-user.target
+EOL
+   	cp $dir/auto /etc/systemd/system/$server_name  
 
 	sleep 2
 	
-    systemctl enable /etc/systemd/user/webA/startup-$i.service
+    systemctl daemon-reload
+	systemctl enable $service_name
 
 	sleep 3	
     
@@ -175,11 +179,12 @@ for i in ${names[@]}; do
         fi
     done
 
-    {
-		echo " "
-		echo "$i:8080 { reverse_proxy localhost:${names_port[$e]}"
-		echo "    }"
-    } >> /etc/caddy/Caddyfile
+    cat > $dir/auto/caddy_config.txt << EOL
+	
+$i:8080 { reverse_proxy localhost:${names_port[$e]}"
+}
+EOL
+	cat $dir/auto/caddy_config.txt >> /etc/caddy/Caddyfile 
 
     sleep 1
     systemctl reload caddy 
