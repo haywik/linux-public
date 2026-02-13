@@ -13,17 +13,17 @@ fi
 
 
 for i in ${names[@]}; do
+    dir=$dir_base"/$i"
     killall -u gitter-$i
     killall -u runner-$i
-
     groupdel $i
     userdel -f gitter-$i
     userdel -f runner-$i
-    rm -rf /home/$i
+    rm -rf $dir #scary!
+
+    systemctl stop startup-$i.service
     systemctl disable startup-$i.service
-    
     rm /etc/systemd/system/startup-$i.service
-    rm  /etc/systemd/user/webA/startup-$i.service
 
     sed -i "/$i/,/}/I d" /etc/caddy/Caddyfile
 
