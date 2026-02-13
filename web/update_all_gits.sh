@@ -2,5 +2,5 @@
 source config.txt
 
 for i in ${name[@]}; do
-    sudo runuser -u "gitter-$i" -c "bash $dir/auto.git.sh"
+    sudo runuser -u "gitter-$i" -c "bash $dir/auto/git.sh"
 done
