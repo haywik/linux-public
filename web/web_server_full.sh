@@ -4,14 +4,6 @@ set -x
 
 source config.txt
 
-BLUE='\033[0;34m'
-WHITE='\033[0;37m'
-GREEN='\033[0;32m'
-REDB='\033[0;41m'
-
-
-name_base="web-haywik"
-dir_base="/opt/$name_base"
 
 echo -e "${BLUE} "
 echo "ROOT-CHECK"
