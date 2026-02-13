@@ -150,7 +150,7 @@ ExecStart=$dir/venv/bin/python $dir/repo/wsgi.py
 [Install]
 WantedBy=multi-user.target
 EOL
-   	cp $dir/auto /etc/systemd/system/$server_name  
+   	cp $dir/auto/$service_name /etc/systemd/system/$server_name  
 
 	sleep 2
 	
