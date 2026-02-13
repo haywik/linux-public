@@ -19,7 +19,7 @@ for i in ${names[@]}; do
     groupdel $i
     userdel -f gitter-$i
     userdel -f runner-$i
-    rm -rf $dir #scary!
+    rm -rf "$dir/" #scary!
 
     systemctl stop startup-$i.service
     systemctl disable startup-$i.service
