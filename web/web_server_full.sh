@@ -94,7 +94,7 @@ for i in ${names[@]}; do
 
 	runuser -l gitter-$i -c "git clone $git_url$i $dir/repo"
 	sleep 2
-    echo """echo "GIT for $i" && cd $dir/repo >> $dir/log/git.log && git fetch $git_url$i && git reset --hard && git pull --no-comit --no-ff $git_url$i""" > $dir/auto/git.sh
+    echo """echo "GIT for $i" && cd $dir/repo >> $dir/log/git.log && git fetch $git_url$i && git reset --hard && git pull --no-commit --no-ff $git_url$i""" > $dir/auto/git.sh
 	#runuse -l gitter-$i -c "crontab $dir/auto/git.sh"
 	sleep 1
     runuser -l gitter-$i -c "bash $dir/auto/git.sh"
