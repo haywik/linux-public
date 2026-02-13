@@ -1,5 +1,6 @@
 #!/bin/bash
 source config.txt
+source config_back.txt
 set -e
 set -x
 
