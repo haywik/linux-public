@@ -1,6 +1,6 @@
-names=( "sub1.example.com" "example.com" )
+names=( "dev.example.com" "central.example.com" "example.com" )
 
-names_port=( "9002" "9003" )
+names_port=( "127.0.25.6:9002" "127.0.25.3:9005" "127.0.25.2:9005" )
 
 
 git_user="GIT-USERNAME"
