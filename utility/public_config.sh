@@ -8,7 +8,7 @@ apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
 apt-get install -y unattended-upgrades && dpkg-reconfigure -plow unattended-upgrades
-apt install -y ufw fail2ban
+apt install -y ufw
 
 cat > /etc/ssh/sshd_config << EOL
 Port 24240
@@ -41,5 +41,3 @@ ufw --force enable
 
 
 systemctl restart ssh
-systemctl enable fail2ban
-systemctl start fail2ban
