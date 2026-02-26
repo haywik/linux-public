@@ -31,7 +31,6 @@ LoginGraceTime 1m
 EOL
 
 sed -i 's/REJECT/DROP/g' /etc/default/ufw
-sed -i 's/-A ufw-before-input -p icmp --icmp-type echo-request -j ACCEPT/-A ufw-before-input -p icmp --icmp-type echo-request -j DROP/' /etc/ufw/before.rules
 
 ufw default deny incoming
 ufw default allow outgoing
