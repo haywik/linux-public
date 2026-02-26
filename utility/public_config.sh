@@ -7,7 +7,7 @@ fi
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-
+apt-get install -y unattended-upgrades && dpkg-reconfigure -plow unattended-upgrades
 apt install -y ufw
 
 cat > /etc/ssh/sshd_config << EOL
