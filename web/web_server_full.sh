@@ -112,7 +112,7 @@ for i in ${names[@]}; do
     echo "CRON-FILES-$i"
     echo -e "${WHITE} "
 
-    runuser -l gitter-$i -c "echo */10 * * * * $dir/auto/git.sh > $dir/auto/cron_file.txt"
+    runuser -l gitter-$i -c "echo '*/10 * * * * $dir/auto/git.sh' > '$dir/auto/cron_file.txt'"
     crontab -u gitter-$i $dir/auto/cron_file.txt
 
     echo -e "${BLUE} "
