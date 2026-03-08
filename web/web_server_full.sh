@@ -71,8 +71,8 @@ for i in ${names[@]}; do
     mkdir -p $dir
 
     groupadd $i
-    useradd "runner-$i" --system -M -N -d $dir -G $i
-    useradd "gitter-$i" --system -M -N -d $dir -G $i
+    useradd "runner-$i" --system -M -s "/bin/bash" -N -d $dir -G $i
+    useradd "gitter-$i" --system -M -s "/bin/bash" -N -d $dir -G $i
 
     
     chown -R gitter-$i:$i $dir
@@ -95,6 +95,8 @@ for i in ${names[@]}; do
 	runuser -l gitter-$i -c "git clone $git_url$i $dir/repo"
 	sleep 2
     echo """echo "GIT for $i" && cd $dir/repo && git fetch && git reset --hard && git pull --no-commit """ > $dir/auto/git.sh
+
+	chmod 550 $dir/auto/git.sh
 	#runuse -l gitter-$i -c "crontab $dir/auto/git.sh"
 	sleep 1
     runuser -l gitter-$i -c "bash $dir/auto/git.sh"
