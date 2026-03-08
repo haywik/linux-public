@@ -71,8 +71,8 @@ for i in ${names[@]}; do
     mkdir -p $dir
 
     groupadd $i
-    useradd "runner-$i" --system -M -s "/bin/rbash" -N -d $dir -G $i
-    useradd "gitter-$i" --system -M -s "/bin/rbash" -N -d $dir -G $i
+    useradd "runner-$i" --system -M -s "/bin/bash" -N -d $dir -G $i
+    useradd "gitter-$i" --system -M -s "/bin/bash" -N -d $dir -G $i
 
     
     chown -R gitter-$i:$i $dir
