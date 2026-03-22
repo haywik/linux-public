@@ -107,7 +107,8 @@ for i in ${names[@]}; do
 
     runuser -l runner-$i -c "python3 -m venv $dir/venv"	
 
-    $dir/venv/bin/python -m pip install -r $dir/repo/depend.txt
+    runuser -l runner-$i -c "$dir/venv/bin/python -m pip install -r $dir/repo/depend.txt"
+	runuser -l runner-$i -c "$dir/venv/bin/python -m pip install --upgrade pip"
     sleep 2
 
     echo -e "${BLUE} "
