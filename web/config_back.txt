@@ -7,4 +7,4 @@ GREEN='\033[0;32m'
 REDB='\033[0;41m'
 
 name_base="web-haywik"
-dir_base="/opt/$name_base"
+dir_base="/opt/haywik/$name_base"
