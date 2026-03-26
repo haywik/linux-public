@@ -1,0 +1,3 @@
+papermc_url=https://fill-data.papermc.io/v1/objects/da497e12b43e5b61c5df150e4bfd0de0f53043e57d2ac98dd59289ee9da4ad68/paper-1.21.11-127.jar
+server_ram=2560M
+DIR=/opt/haywik/mc
