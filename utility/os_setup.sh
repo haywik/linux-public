@@ -1,14 +1,36 @@
 #!/bin/bash
+set -e
+
+allowed_ssh_user=haywik
+startup_cmd=gtop
 
 if [ "$EUID" -ne 0 ]; then 
+  echo "Must be root"
   exit 1
 fi
+
+echo "Execute gtop on display? (dependcies installing... npm nodjs) [y/n]"
+read install_boot_cmd
 
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
 apt-get install -y unattended-upgrades && dpkg-reconfigure -plow unattended-upgrades
-apt install -y ufw
+apt install -y ufw openssh-server
+
+if ["$install_gtop -e "y"]; then
+  echo "Installing gtop to show on boot"
+  apt-get -y install npm nodejs openssh-server
+  npm install gtop -g
+  useradd "rdisplay" -m -s /bin/rbash -c "executes cmd placed in users bash when logged" 
+  echo "$startup_cmd" >> /home/rdisplay/.profile
+  chattr +i -R /home/rdisplay
+  mkdir -p /etc/systemd/system/getty@tty1.service.d/
+  cat > /etc/systemd/system/getty@tty1.service.d/override.conf << EOL
+  [Service]
+  ExecStart=
+  ExecStart=-/sbin/agetty --noissue --autologin rdisplay %I $TERM Type=idle
+  EOL
 
 cat > /etc/ssh/sshd_config << EOL
 Port 24240
@@ -20,7 +42,7 @@ PasswordAuthentication no
 ChallengeResponseAuthentication no
 UsePAM yes
 StrictModes yes
-AllowUsers haywik
+AllowUsers $allowed_ssh_user
 X11Forwarding no
 PrintMotd no
 DebianBanner no
@@ -32,15 +54,14 @@ EOL
 
 ufw default deny incoming
 ufw default allow outgoing
+ufw allow 24240/tcp
 
-#ufw allow 24240/tcp
 #ufw allow 25565/tcp  #example for minecraft server
 #ufw limit 24240
 
-ufw allow ssh
-sed -i 's/REJECT/DROP/g' /etc/default/ufw
+sed -i 's/REJECT/DROP/g' /etc/default/ufw  #sed scans through file, g is global so everything not just first line and repllaced reject to drop
 ufw --force enable
 
-systemctl restart ssh
-systemctl restart ssh.service
+echo "SYSTEM RESTART"
 
+reboot
