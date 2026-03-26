@@ -30,14 +30,17 @@ MaxSessions 10
 LoginGraceTime 1m
 EOL
 
-sed -i 's/REJECT/DROP/g' /etc/default/ufw
-
 ufw default deny incoming
 ufw default allow outgoing
-ufw allow 24240/tcp
-ufw allow 25565/tcp
-ufw limit 24240
+
+#ufw allow 24240/tcp
+#ufw allow 25565/tcp  #example for minecraft server
+#ufw limit 24240
+
+ufw allow ssh
+sed -i 's/REJECT/DROP/g' /etc/default/ufw
 ufw --force enable
 
-
 systemctl restart ssh
+systemctl restart ssh.service
+
