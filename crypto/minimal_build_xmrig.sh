@@ -5,10 +5,10 @@ address=$(cat wallet.key)
 host=$(hostname)
 user=$(whoami)
 
-if [ $user -eq "root ]; then
-    echo "Dont run this script as root"
+f [ "$EUID" -e 0 ]; then 
+  echo "Must NOT be root"
+  exit 1
 fi
-
 
 dir_set=$HOME/monero-haywik
 apt-get update && sudo apt-get upgrade
