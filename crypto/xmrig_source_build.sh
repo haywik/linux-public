@@ -5,7 +5,7 @@ address=$(cat wallet.key)
 host=$(hostname)
 user=$(whoami)
 
-f [ "$EUID" -e 0 ]; then 
+if [ "$EUID" -e 0 ]; then 
   echo "Must NOT be root"
   exit 1
 fi
