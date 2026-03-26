@@ -7,9 +7,11 @@ user=$(whoami)
 dir_set=$HOME/monero-haywik
 service="monerohaywik_miner.service"
 
-if [ $user -eq "root" ]; then
-    echo "Dont run this script as root"
+if [ "$EUID" -e 0 ]; then 
+  echo "Must NOT be root"
+  exit 1
 fi
+
 
 sudo apt-get -y update && sudo apt-get upgrade
 sudo apt-get -y install git build-essential cmake libuv1-dev libssl-dev libhwloc-dev curl nodejs npm
