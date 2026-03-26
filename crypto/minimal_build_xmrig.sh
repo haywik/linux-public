@@ -18,7 +18,7 @@ echo "Removing any old scripts"
 killall xmrig
 rm -rf $dir_set
 
-mkdir -p /home/$user/monero-haywik
+mkdir -p $dir_Set
 cd $dir_set
 git clone https://github.com/xmrig/xmrig.git
 cd xmrig
