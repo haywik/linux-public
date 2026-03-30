@@ -11,6 +11,8 @@ fi
 
 echo "Execute gtop on display? (dependcies installing... npm nodjs) [y/n]"
 read install_boot_cmd
+echo "Add user haywik [y/n]"
+read add_haywik
 
 apt-get -y update
 apt-get -y upgrade
@@ -18,9 +20,13 @@ apt-get -y dist-upgrade
 apt-get install -y unattended-upgrades && dpkg-reconfigure -plow unattended-upgrades
 apt install -y ufw openssh-server
 
+if ["$add_haywik" -e "y"]; then
+  useradd "haywik2" -U -K PASS_MAX_DAYS=0 -G sudo -m -s /bin/bash -c "primary user"
+  passwd -e haywik
+
 if ["$install_gtop -e "y"]; then
   echo "Installing gtop to show on boot"
-  apt-get -y install npm nodejs openssh-server
+  apt-get -y install npm nodejs 
   npm install gtop -g
   useradd "rdisplay" -m -s /bin/rbash -c "executes cmd placed in users bash when logged" 
   echo "$startup_cmd" >> /home/rdisplay/.profile
