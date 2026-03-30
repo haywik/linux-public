@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+hostname=dietpi-haywik
 allowed_ssh_user=haywik
 startup_cmd=gtop
 
@@ -14,6 +15,7 @@ read -p "Add user haywik [y/n]" add_haywik < /dev/tty
 
 export DEBIAN_FRONTEND=noninteractive
 systemctl disable dropbear --now
+echo "$hostname" > /etc/hostname
 
 apt-get -y update
 apt-get -y upgrade
@@ -24,6 +26,9 @@ apt install -y ufw openssh-server
 if [ "$add_haywik" = "y" ]; then
   useradd "haywik" -U -G sudo -m -s /bin/bash -c "primary user"
   passwd -e haywik
+  read -p "ssh key [IN]" ssh_key < /dev/tty
+  mkdir -p /home/haywik/.ssh/
+  echo "$ssh_key" >> /home/haywik/.ssh/authorized_keys
 fi
 
 if [ "$install_gtop" = "y" ] ; then
