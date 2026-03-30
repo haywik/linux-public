@@ -14,7 +14,7 @@ read -p "Execute gtop on display? (dependcies installing... npm nodjs) [y/n]" in
 read -p "Add user haywik [y/n]" add_haywik < /dev/tty
 
 export DEBIAN_FRONTEND=noninteractive
-systemctl disable dropbear --now
+systemctl disable dropbear --now || true
 echo "$hostname" > /etc/hostname
 
 apt-get -y update
