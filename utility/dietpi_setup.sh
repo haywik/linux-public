@@ -27,7 +27,8 @@ if [ "$add_haywik" = "y" ]; then
   useradd "haywik" -U -G sudo -m -s /bin/bash -c "primary user"
   passwd -e haywik
   read -p "ssh key [IN]" ssh_key < /dev/tty
-  mkdir -p /home/haywik/.ssh/
+  runuser -l haywik -c "mkdir -p /home/haywik/.ssh/"
+  runuser -l haywik -c "echo >> /home/haywik/.ssh/authorized_keys"
   echo "$ssh_key" >> /home/haywik/.ssh/authorized_keys
 fi
 
@@ -37,6 +38,7 @@ if [ "$install_gtop" = "y" ] ; then
   npm install gtop -g
   useradd "rdisplay" -m -s /bin/rbash -c "executes cmd placed in users bash when logged" 
   echo "$startup_cmd" >> /home/rdisplay/.profile
+  passwd -l rdisplay
   chattr -R +i /home/rdisplay
   mkdir -p /etc/systemd/system/getty@tty1.service.d/
   cat > /etc/systemd/system/getty@tty1.service.d/override.conf << EOL
@@ -74,7 +76,7 @@ ufw allow 24240/tcp
 #ufw allow 25565/tcp  #example for minecraft server
 #ufw limit 24240
 
-sed -i 's/REJECT/DROP/g' /etc/default/ufw  #sed scans through file, g is global so everything not just first line and repllaced reject to drop
+#sed -i 's/REJECT/DROP/g' /etc/default/ufw  #sed scans through file, g is global so everything not just first line and repllaced reject to drop
 ufw --force enable
 
 echo "SYSTEM RESTART"
