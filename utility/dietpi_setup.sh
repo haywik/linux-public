@@ -10,7 +10,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 echo "Execute gtop on display? (dependcies installing... npm nodjs) [y/n]"
-read install_boot_cmd
+read install_gtop
 echo "Add user haywik [y/n]"
 read add_haywik
 
@@ -20,23 +20,26 @@ apt-get -y dist-upgrade
 apt-get install -y unattended-upgrades && dpkg-reconfigure -plow unattended-upgrades
 apt install -y ufw openssh-server
 
-if ["$add_haywik" -e "y"]; then
-  useradd "haywik2" -U -K PASS_MAX_DAYS=0 -G sudo -m -s /bin/bash -c "primary user"
+if [ "$add_haywik" -e "y" ]; then
+  useradd "haywik" -U -G sudo -m -s /bin/bash -c "primary user"
   passwd -e haywik
+fi
 
-if ["$install_gtop -e "y"]; then
+if [ "$install_gtop = "y" ] ; then
   echo "Installing gtop to show on boot"
   apt-get -y install npm nodejs 
   npm install gtop -g
   useradd "rdisplay" -m -s /bin/rbash -c "executes cmd placed in users bash when logged" 
   echo "$startup_cmd" >> /home/rdisplay/.profile
-  chattr +i -R /home/rdisplay
+  chattr -R +i /home/rdisplay
   mkdir -p /etc/systemd/system/getty@tty1.service.d/
   cat > /etc/systemd/system/getty@tty1.service.d/override.conf << EOL
   [Service]
   ExecStart=
-  ExecStart=-/sbin/agetty --noissue --autologin rdisplay %I $TERM Type=idle
+  ExecStart=-/sbin/agetty --noissue --autologin rdisplay %I $TERM
+  Type=idle
   EOL
+fi
 
 cat > /etc/ssh/sshd_config << EOL
 Port 24240
