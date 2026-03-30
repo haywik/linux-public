@@ -20,12 +20,12 @@ apt-get -y dist-upgrade
 apt-get install -y unattended-upgrades && dpkg-reconfigure -plow unattended-upgrades
 apt install -y ufw openssh-server
 
-if [ "$add_haywik" -e "y" ]; then
+if [ "$add_haywik" = "y" ]; then
   useradd "haywik" -U -G sudo -m -s /bin/bash -c "primary user"
   passwd -e haywik
 fi
 
-if [ "$install_gtop = "y" ] ; then
+if [ "$install_gtop" = "y" ] ; then
   echo "Installing gtop to show on boot"
   apt-get -y install npm nodejs 
   npm install gtop -g
@@ -34,11 +34,11 @@ if [ "$install_gtop = "y" ] ; then
   chattr -R +i /home/rdisplay
   mkdir -p /etc/systemd/system/getty@tty1.service.d/
   cat > /etc/systemd/system/getty@tty1.service.d/override.conf << EOL
-  [Service]
-  ExecStart=
-  ExecStart=-/sbin/agetty --noissue --autologin rdisplay %I $TERM
-  Type=idle
-  EOL
+[Service]
+ExecStart=
+ExecStart=-/sbin/agetty --noissue --autologin rdisplay %I $TERM
+Type=idle
+EOL
 fi
 
 cat > /etc/ssh/sshd_config << EOL
