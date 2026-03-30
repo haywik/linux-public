@@ -9,8 +9,8 @@ if [ "$EUID" -ne 0 ]; then
   exit 1
 fi
 
-read -p "Execute gtop on display? (dependcies installing... npm nodjs) [y/n]" install_gtop
-read -p "Add user haywik [y/n]" add_haywik
+read -p "Execute gtop on display? (dependcies installing... npm nodjs) [y/n]" install_gtop < /dev/tty
+read -p "Add user haywik [y/n]" add_haywik < /dev/tty
 
 apt-get -y update
 apt-get -y upgrade
