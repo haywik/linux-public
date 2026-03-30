@@ -1,7 +1,6 @@
 #!/bin/bash
 set -e
 
-hostname=dietpi-haywik
 allowed_ssh_user=haywik
 startup_cmd=gtop
 
@@ -11,7 +10,8 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 read -p "Execute gtop on display? (dependcies installing... npm nodjs) [y/n]" install_gtop < /dev/tty
-read -p "Add user haywik [y/n]" add_haywik < /dev/tty
+read -p "Add user haywik? [y/n]" add_haywik < /dev/tty
+read -p "Hostname of device? [IN]" hostname < /dev/tty
 
 export DEBIAN_FRONTEND=noninteractive
 systemctl disable dropbear --now || true
