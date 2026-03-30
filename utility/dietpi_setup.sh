@@ -25,7 +25,6 @@ apt install -y ufw openssh-server
 
 if [ "$add_haywik" = "y" ]; then
   useradd "haywik" -U -G sudo -m -s /bin/bash -c "primary user"
-  passwd -e haywik
   read -p "ssh key [IN]" ssh_key < /dev/tty
   runuser -l haywik -c "mkdir -p /home/haywik/.ssh/"
   runuser -l haywik -c "echo >> /home/haywik/.ssh/authorized_keys"
