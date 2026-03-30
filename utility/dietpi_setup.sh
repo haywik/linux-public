@@ -12,6 +12,7 @@ fi
 read -p "Execute gtop on display? (dependcies installing... npm nodjs) [y/n]" install_gtop < /dev/tty
 read -p "Add user haywik [y/n]" add_haywik < /dev/tty
 
+export DEBIAN_FRONTEND=noninteractive
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
