@@ -1,8 +1,8 @@
 set -x
 #make sure the script was opened and the defualt configs where changed
 
-source config.txt
-source config_back.txt
+source ./../config.txt
+
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${REDB} "
