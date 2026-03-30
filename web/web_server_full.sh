@@ -3,7 +3,6 @@ set -e
 set -x
 
 source config.txt
-source config_back.txt
 
 echo -e "${BLUE} "
 echo "ROOT-CHECK"
