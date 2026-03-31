@@ -43,7 +43,7 @@ if [[ "$cad_check" = "ii" ]]; then
 else
     apt -y install caddy
     echo "{" > /etc/caddy/Caddyfile
-    echo "    http_port 8080" >> /etc/caddy/Caddyfile
+    echo "    http_port 58080" >> /etc/caddy/Caddyfile
     echo "}" >> /etc/caddy/Caddyfile
     systemctl reload caddy
 	sleep 2
@@ -175,7 +175,7 @@ EOL
 
     cat > $dir/auto/caddy_config.txt << EOL
 	
-$i:8080 { reverse_proxy ${names_port[$e]}
+$i:58080 { reverse_proxy ${names_port[$e]}
 }
 EOL
 	cat $dir/auto/caddy_config.txt >> /etc/caddy/Caddyfile 
