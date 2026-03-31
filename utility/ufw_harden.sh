@@ -27,6 +27,6 @@ ufw insert 1 allow out to $gateway_ip
 ufw insert 1 allow out to $admin_ip
 ufw insert 1 allow in from $admin_ip
 
-ufw allow from $admin_up to any port $ssh_port
+ufw allow insert 1 from $admin_up to any port $ssh_port
 
 ufw reload
