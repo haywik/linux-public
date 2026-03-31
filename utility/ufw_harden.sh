@@ -19,7 +19,7 @@ else
     exit 1
 fi
 
-ufw deny 0
+ufw deny 65535
 ufw insert 1 allow from $admin_ip to any port $ssh_port proto tcp
 ufw insert 2 allow in from $admin_ip
 ufw insert 3 allow out to $admin_ip
