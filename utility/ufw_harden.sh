@@ -3,7 +3,7 @@ set -e
 
 admin_ip=192.168.0.204
 gateway_ip=192.168.0.1
-ssh_port="22220"
+ssh_port=24240
 
 if [ "$EUID" -ne 0 ]; then 
   echo "Must be root"
