@@ -11,7 +11,7 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 
-check=`dpkg -l | grep "caddy" | awk '{print $1}'`
+check=`dpkg -l | grep "ufw" | awk '{print $1}'`
 if [[ "$check" = "ii" ]]; then
     echo "UFW is installed"
 else
@@ -27,6 +27,6 @@ ufw insert 3 allow out to $gateway_ip
 ufw insert 2 allow out to $admin_ip
 ufw insert 1 allow in from $admin_ip
 
-ufw allow insert 1 from $admin_ip to any port $ssh_port
+ufw insert 1 allow from $admin_ip to any port $ssh_port proto tcp
 
 ufw reload
