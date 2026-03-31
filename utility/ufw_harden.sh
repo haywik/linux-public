@@ -19,14 +19,12 @@ else
     exit 1
 fi
 
-ufw insert 5 deny out to 192.168.0.0/24
-ufw insert 4 deny in from 192.168.0.0/24
-
-ufw insert 3 allow out to $gateway_ip
-
-ufw insert 2 allow out to $admin_ip
-ufw insert 1 allow in from $admin_ip
-
+ufw deny 0
 ufw insert 1 allow from $admin_ip to any port $ssh_port proto tcp
+ufw insert 2 allow in from $admin_ip
+ufw insert 3 allow out to $admin_ip
+ufw insert 4 allow out to $gateway_ip
+ufw insert 5 deny in from 192.168.0.0/24
+ufw insert 6 deny out to 192.168.0.0/24
 
 ufw reload
