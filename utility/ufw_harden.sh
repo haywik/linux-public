@@ -21,7 +21,7 @@ fi
 
 ufw deny 65535
 ufw insert 1 allow from $admin_ip to any port $ssh_port proto tcp
-ufw insert 2 allow in from $admin_ip
+ufw insert 2 allow in from $admin_ip to any port 8080
 ufw insert 3 allow out to $admin_ip
 ufw insert 4 allow out to $gateway_ip
 ufw insert 5 deny in from 192.168.0.0/24
