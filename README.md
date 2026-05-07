@@ -1,11 +1,8 @@
 # linux
 My public utility scripts for linux
-I used some of theses scripts as documention for my web server.
+
+Contains anything i use a LOT, feel free to use anything here - does not have documentation yet.
+But feel free to ask questions or improvements.
 
 
-
---Changes 2026.FEB.8.02:02--
-Slowed down web_full due to problems of setting up front parts of the scripts before any async cmds where finished
-(caddy and the systemctl start)
-
-Added reinitalise.sh, this update the linix-public and uninstalls and reinstalls the web server instances :)
+( Not built for public to use - may brake systems if not understood)
