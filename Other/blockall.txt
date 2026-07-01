@@ -1,3 +1,5 @@
 # Title: haywik block all shortcut list
 
 0.0.0.0 *.*.*
+0.0.0.0 .*
+0.0.0.0 *.*
