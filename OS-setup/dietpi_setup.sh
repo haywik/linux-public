@@ -17,19 +17,20 @@ export DEBIAN_FRONTEND=noninteractive
 systemctl disable dropbear --now || true
 echo "$hostname" > /etc/hostname
 
-apt-get -y update
-apt-get -y upgrade
-apt-get -y dist-upgrade
-apt-get install -y unattended-upgrades && dpkg-reconfigure -plow unattended-upgrades
-apt install -y ufw openssh-server
-
 if [ "$add_haywik" = "y" ]; then
   useradd "haywik" -U -G sudo -m -s /bin/bash -c "primary user"
   read -p "ssh key [IN]" ssh_key < /dev/tty
   runuser -l haywik -c "mkdir -p /home/haywik/.ssh/"
   runuser -l haywik -c "echo >> /home/haywik/.ssh/authorized_keys"
   echo "$ssh_key" >> /home/haywik/.ssh/authorized_keys
+  echo "haywik user and ssh added"
 fi
+
+apt-get -y update
+apt-get -y upgrade
+apt-get -y dist-upgrade
+apt-get install -y unattended-upgrades && dpkg-reconfigure -plow unattended-upgrades
+apt install -y ufw openssh-server
 
 if [ "$install_gtop" = "y" ] ; then
   echo "Installing gtop to show on boot"
