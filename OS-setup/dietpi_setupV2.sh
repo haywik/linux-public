@@ -1,3 +1,7 @@
+set -e
+
+export DEBIAN_FRONTEND=noninteractive
+
 useradd "haywik" -U -G sudo -m -s /bin/bash -c "primary user"
 apt-get -y update
 apt-get -y upgrade
