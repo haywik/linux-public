@@ -16,4 +16,4 @@ cat > /etc/default/dropbear << EOL
   DROPBEAR_EXTRA_ARGS="-s -g -l haywik"
 EOL
 
-reboot
+systemctl restart dropbear
