@@ -25,7 +25,6 @@ ufw allow 8443
 ufw --force enable
 
 incus config set core.https_address=:8443
-sudo usermod -aG incus-admin haywik
 
 cat > /etc/default/dropbear << EOL
 DROPBEAR_PORT=22
@@ -37,6 +36,8 @@ runuser -l haywik -c "mkdir -p /home/haywik/.ssh/ && echo >> /home/haywik/.ssh/a
 cp /boot/authorized_keys /home/haywik/.ssh/authorized_keys
 
 echo "haywik ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+sudo usermod -aG incus-admin haywik
 
 echo "bash /home/haywik/.first_logon" >> /home/haywik/.bashrc
 
