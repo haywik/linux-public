@@ -2,15 +2,30 @@
 set -e
 export DEBIAN_FRONTEND=noninteractive
 
+sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-stable.sources
+Enabled: yes
+Types: deb
+URIs: https://pkgs.zabbly.com/incus/stable
+Suites: $(. /etc/os-release && echo ${VERSION_CODENAME})
+Components: main
+Architectures: $(dpkg --print-architecture)
+Signed-By: /etc/apt/keyrings/zabbly.asc
+
+EOF'
+
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-apt-get install -y unattended-upgrades ufw lxc
+apt-get install -y unattended-upgrades ufw lxc incus incus-ui-canonical openssh-sftp-server
 
 dpkg-reconfigure -plow unattended-upgrades
 
 ufw allow ssh
+ufw allow 8443
 ufw --force enable
+
+incus config set core.https_address=:8443
+sudo usermod -aG incus-admin haywik
 
 cat > /etc/default/dropbear << EOL
 DROPBEAR_PORT=22
