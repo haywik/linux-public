@@ -26,6 +26,9 @@ echo "haywik ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 echo "bash /home/haywik/.first_logon" >> /home/haywik/.bashrc
 
 cat > /home/haywik/.first_logon << EOL
+#!/bin/bash
+read -p "New Hostname: " hostName < /dev/tty
+sudo /boot/dietpi/func/change_hostname $hostName
 sudo su root
 sed -i '\|bash /home/haywik/.first_logon|d' /home/haywik/.bashrc
 rm /home/haywik/.first_logon
