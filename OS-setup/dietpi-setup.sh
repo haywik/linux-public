@@ -20,4 +20,8 @@ EOL
 runuser -l haywik -c "mkdir -p /home/haywik/.ssh/ && echo >> /home/haywik/.ssh/authorized_keys"
 cp /boot/authorized_keys /home/haywik/.ssh/authorized_keys
 
+cat > /home/haywik/.bashrc << EOL
+sudo su root && sed -i '/sudo su root/d' /home/haywik/.bashrc
+EOL
+
 systemctl restart dropbear
