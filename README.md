@@ -6,3 +6,7 @@ But feel free to ask questions or improvements.
 
 
 ( Not built for public to use - may break systems if not understood)
+
+
+
+- NOTE, update dev.haywik.com
