@@ -5,5 +5,5 @@
 5. SSH into the servers primary user.
 
 - Default root password is `dietpi_dietpi`
-- On first SSH logon to the primary user, it logs you into root and prompts for a password change of root.
+- On first SSH logon to the primary user, it logins as root to prompt a password change of root.
 - Do NOT remove unused config lines in `dietpi.txt`, as the OS recommends against it.
