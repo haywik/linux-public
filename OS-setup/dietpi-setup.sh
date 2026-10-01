@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 export DEBIAN_FRONTEND=noninteractive
+export primary_user="haywik"
 
 sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-stable.sources
 Enabled: yes
@@ -28,26 +29,26 @@ incus config set core.https_address=:8443
 
 cat > /etc/default/dropbear << EOL
 DROPBEAR_PORT=22
-DROPBEAR_EXTRA_ARGS="-s -g -l haywik"
+DROPBEAR_EXTRA_ARGS="-s -g -l $primary_user"
 EOL
 
-useradd "haywik" -U -G sudo -m -s /bin/bash -c "primary user"
-runuser -l haywik -c "mkdir -p /home/haywik/.ssh/ && echo >> /home/haywik/.ssh/authorized_keys && echo >> /home/haywik/.first_logon"
-cp /boot/authorized_keys /home/haywik/.ssh/authorized_keys
+useradd "$primary_user" -U -G sudo -m -s /bin/bash -c "primary user"
+runuser -l $primary_user -c "mkdir -p /home/$primary_user/.ssh/ && echo >> /home/$primary_user/.ssh/authorized_keys && echo >> /home/$primary_user/.first_logon"
+cp /boot/authorized_keys /home/$primary_user/.ssh/authorized_keys
 
-echo "haywik ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+echo "$primary_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-sudo usermod -aG incus-admin haywik
+sudo usermod -aG incus-admin $primary_user
 
-echo "bash /home/haywik/.first_logon" >> /home/haywik/.bashrc
+echo "bash /home/$primary_user/.first_logon" >> /home/$primary_user/.bashrc
 
-cat > /home/haywik/.first_logon << EOL
+cat > /home/$primary_user/.first_logon << EOL
 #!/bin/bash
 read -p "New Hostname: " hostName < /dev/tty
 sudo /boot/dietpi/func/change_hostname $hostName
 sudo su root
-sed -i '\|bash /home/haywik/.first_logon|d' /home/haywik/.bashrc
-rm /home/haywik/.first_logon
+sed -i '\|bash /home/$primary_user/.first_logon|d' /home/$primary_user/.bashrc
+rm /home/$primary_user/.first_logon
 EOL
 
 
