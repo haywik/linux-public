@@ -17,8 +17,7 @@ DROPBEAR_PORT=22
 DROPBEAR_EXTRA_ARGS="-s -g -l haywik"
 EOL
 
-runuser -l haywik -c "mkdir -p /home/haywik/.ssh/"
-runuser -l haywik -c "echo >> /home/haywik/.ssh/authorized_keys"
+runuser -l haywik -c "mkdir -p /home/haywik/.ssh/ && echo >> /home/haywik/.ssh/authorized_keys"
 cp /boot/authorized_keys /home/haywik/.ssh/authorized_keys
 
 systemctl restart dropbear
