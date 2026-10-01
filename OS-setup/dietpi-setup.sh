@@ -2,13 +2,13 @@
 set -e
 export DEBIAN_FRONTEND=noninteractive
 
-useradd "haywik" -U -G sudo -m -s /bin/bash -c "primary user"
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-apt-get install -y unattended-upgrades
-apt-get install -y ufw lxc
+apt-get install -y unattended-upgrades ufw lxc
+
 dpkg-reconfigure -plow unattended-upgrades
+
 ufw allow ssh
 ufw --force enable
 
@@ -17,14 +17,15 @@ DROPBEAR_PORT=22
 DROPBEAR_EXTRA_ARGS="-s -g -l haywik"
 EOL
 
-runuser -l haywik -c "mkdir -p /home/haywik/.ssh/ && echo >> /home/haywik/.ssh/authorized_keys"
+useradd "haywik" -U -G sudo -m -s /bin/bash -c "primary user"
+runuser -l haywik -c "mkdir -p /home/haywik/.ssh/ && echo >> /home/haywik/.ssh/authorized_keys && echo >> /home/haywik/.first_logon"
 cp /boot/authorized_keys /home/haywik/.ssh/authorized_keys
 
 echo "haywik ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 
-
-cat > /home/haywik/.bashrc << EOL
-sudo su root && sed -i '/sudo su root/d' /home/haywik/.bashrc
+cat > /home/haywik/.first_logon << EOL
+sudo su root
+sed -i '\|bash /home/haywik/.first_logon|d' /home/haywik/.bashrc
 EOL
 
 
