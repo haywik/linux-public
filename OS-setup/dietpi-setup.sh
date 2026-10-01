@@ -19,12 +19,11 @@ apt-get -y upgrade
 apt-get -y dist-upgrade
 apt-get install -y unattended-upgrades ufw lxc incus incus-ui-canonical openssh-sftp-server
 
-dpkg-reconfigure -plow unattended-upgrades
-
 ufw allow ssh
 ufw allow 8443
 ufw --force enable
 
+dpkg-reconfigure -plow unattended-upgrades
 incus config set core.https_address=:8443
 
 cat > /etc/default/dropbear << EOL
@@ -37,11 +36,9 @@ runuser -l $primary_user -c "mkdir -p /home/$primary_user/.ssh/ && echo >> /home
 cp /boot/authorized_keys /home/$primary_user/.ssh/authorized_keys
 
 echo "$primary_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
-
-sudo usermod -aG incus-admin $primary_user
+usermod -aG incus-admin $primary_user
 
 echo "bash /home/$primary_user/.first_logon" >> /home/$primary_user/.bashrc
-
 cat > /home/$primary_user/.first_logon << EOL
 #!/bin/bash
 read -p "New Hostname: " hostName < /dev/tty
@@ -50,7 +47,5 @@ sudo su root
 sed -i '\|bash /home/$primary_user/.first_logon|d' /home/$primary_user/.bashrc
 rm /home/$primary_user/.first_logon
 EOL
-
-
 
 systemctl restart dropbear
