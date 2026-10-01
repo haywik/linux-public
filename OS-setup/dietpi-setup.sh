@@ -24,4 +24,7 @@ cat > /home/haywik/.bashrc << EOL
 sudo su root && sed -i '/sudo su root/d' /home/haywik/.bashrc
 EOL
 
+echo "haywik ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+
 systemctl restart dropbear
