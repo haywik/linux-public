@@ -5,7 +5,7 @@
 ## How to setup
 
 1. Flash the RaspberryPi with DietPi OS.
-2. Copy all the **contents** of OS-setup, the current directory, into `/boot` on the Raspberry Pis **_root_ partion**. 
+2. Copy all the contents of OS-setup, the current directory, into `/boot` on the Raspberry Pis **_root_ partion**. 
 3. Add all your Public-SSH keys to `authorized_keys`,this is added into to the primary user's authorized_keys file.
 4. Boot the server, with a network connection.
 5. Using **SSH** login to the primary user.
