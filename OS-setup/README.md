@@ -2,8 +2,6 @@
 > - Don't remove unused config lines in `dietpi.txt`
 > - Avoid editing the hostname or Global password in `dietpi.txt`
 
---
-
 ## How to setup
 
 1. Flash the RaspberryPi with DietPi OS.
