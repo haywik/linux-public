@@ -43,9 +43,15 @@ cat > /home/$primary_user/.first_logon << EOL
 #!/bin/bash
 read -p "New Hostname: " hostName < /dev/tty
 sudo /boot/dietpi/func/change_hostname $hostName
-sudo su root
+
+echo "New Root Password"
+sudo passwd root
+echo "Disabling password logins for the dietpi user"
+sudo passwd -l dietpi
+
 sed -i '\|bash /home/$primary_user/.first_logon|d' /home/$primary_user/.bashrc
 rm /home/$primary_user/.first_logon
+
 EOL
 
 systemctl restart dropbear
