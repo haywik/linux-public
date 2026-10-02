@@ -10,12 +10,10 @@
 4. Boot the server.
 5. Login into the primary user.
 
----
----
+<br>
 
 ### Before the login of the primary user
 - Default root/dietpi password is `dietpi_dietpi`
-
 
 ### On the first primary user login
 - A prompt to modify the hostname and root password is shown.
