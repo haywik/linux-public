@@ -1,6 +1,6 @@
 > [!WARNING] 
 > - Don't remove unused config lines in `dietpi.txt`
-> - Avoid editing the hostname or Global password in `dietpi.txt`
+> - Avoid editing the hostname or `AUTO_SETUP_GLOBAL_PASSWORD` in `dietpi.txt`
 
 ## How to setup
 
