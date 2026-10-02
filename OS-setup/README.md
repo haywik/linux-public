@@ -13,7 +13,7 @@
 <br>
 
 ### Before the login of the primary user
-- Default root/dietpi password is `dietpi`
+- Default root/dietpi password is `dietpi_dietpi`
 - The `authorized_keys` file was added into to the primary user's authorized_keys file.
 
 ### On the first primary user login
