@@ -38,6 +38,8 @@ cp /boot/authorized_keys /home/$primary_user/.ssh/authorized_keys
 echo "$primary_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 usermod -aG incus-admin $primary_user
 
+echo 'alias aptdo="sudo apt-get update && sudo apt-get -y upgrade"' >> /home/$primary_user/.bashrc
+
 echo "bash /home/$primary_user/.first_logon" >> /home/$primary_user/.bashrc
 cat > /home/$primary_user/.first_logon << EOL
 #!/bin/bash
