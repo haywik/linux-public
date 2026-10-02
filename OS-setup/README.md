@@ -1,6 +1,6 @@
-[!WARNING] 
-Do NOT remove unused config lines in `dietpi.txt`, as the OS recommends against it.
-Avoid editing the hostname or Global password in `dietpi.txt`, as on first logon you are prompted to change them.
+> [!WARNING] 
+> Do NOT remove unused config lines in `dietpi.txt`, as the OS recommends against it.
+> Avoid editing the hostname or Global password in `dietpi.txt`, as on first logon you are prompted to change them.
 
 1. Flash the RaspberryPi with DietPi OS.
 2. Copy the contents of OS-setup, the current directory, into `/boot` on the Raspberry Pis root partion. 
