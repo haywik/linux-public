@@ -3,7 +3,8 @@ set -e
 export DEBIAN_FRONTEND=noninteractive
 export primary_user="haywik"
 
-curl -fsSL https://pkgs.zabbly.com/key.asc | gpg --show-keys --fingerprint
+mkdir -p /etc/apt/keyrings/
+curl -fsSL https://pkgs.zabbly.com/key.asc -o /etc/apt/keyrings/zabbly.asc
 sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-stable.sources
 Enabled: yes
 Types: deb
