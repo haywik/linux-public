@@ -10,7 +10,7 @@
 4. Boot the server.
 5. Login into the primary user.
 
-<hr style="height: 4px">
+<hr style="height: 8px; background-color: #333;">
 
 ### Before the login of the primary user
 - Default root/dietpi password is `dietpi_dietpi`
