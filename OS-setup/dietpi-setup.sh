@@ -54,4 +54,6 @@ rm /home/$primary_user/.first_logon
 
 EOL
 
+chmod 755 /home/$primary_user/.first_logon 
+
 systemctl restart dropbear
