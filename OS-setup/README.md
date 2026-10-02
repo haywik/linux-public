@@ -1,6 +1,6 @@
 > [!WARNING] 
 > - Don't remove unused config lines in `dietpi.txt`
-> Avoid editing the hostname or Global password in `dietpi.txt`
+> - Avoid editing the hostname or Global password in `dietpi.txt`
 
 ## How to setup
 
@@ -10,8 +10,10 @@
 4. Boot the server.
 5. Login into the primary user.
 
+
 ### Before the login of the primary user
 - Default root/dietpi password is `dietpi_dietpi`
+
 
 ### On the first primary user login
 - A prompt to modify the hostname and root password is shown.
