@@ -19,7 +19,7 @@ EOF'
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-apt-get install -y unattended-upgrades ufw incus incus-ui-canonical openssh-sftp-server
+apt-get install -y unattended-upgrades ufw incus incus-ui-canonical openssh-sftp-server ovn-central ovn-host nftables
 
 ufw allow ssh
 ufw allow 8443
