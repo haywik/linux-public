@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -x
 export DEBIAN_FRONTEND=noninteractive
 export primary_user="haywik"
 
@@ -26,7 +26,7 @@ ufw allow 8443
 ufw --force enable
 
 dpkg-reconfigure -plow unattended-upgrades
-incus config set core.https_address=:8443
+incus config unset core.https_address
 
 cat > /etc/default/dropbear << EOL
 DROPBEAR_PORT=22
@@ -52,6 +52,10 @@ echo "New Root Password"
 sudo passwd root
 echo "Disabling password logins for the dietpi user"
 sudo passwd -l dietpi
+echo "INCUS Setup"
+incus admin init
+incus config set core.https_address :8443
+sudo systemctl restart incus
 
 sed -i '\|bash /home/$primary_user/.first_logon|d' /home/$primary_user/.bashrc
 rm /home/$primary_user/.first_logon
@@ -60,6 +64,5 @@ EOL
 
 chmod 755 /home/$primary_user/.first_logon 
 
-systemctl stop sshd
-systemctl disable sshd
+apt-get remove sshd
 systemctl restart dropbear
