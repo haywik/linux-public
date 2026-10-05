@@ -19,7 +19,7 @@ EOF'
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-apt-get install -y unattended-upgrades ufw incus incus-ui-canonical openssh-sftp-server ovn-central ovn-host nftables
+apt-get install -y unattended-upgrades ufw incus incus-ui-canonical openssh-sftp-server ovn-central ovn-host nftables dropbear
 
 ufw allow ssh
 ufw allow 8443
@@ -60,4 +60,6 @@ EOL
 
 chmod 755 /home/$primary_user/.first_logon 
 
+systemctl stop sshd
+systemctl disable sshd
 systemctl restart dropbear
