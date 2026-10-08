@@ -3,7 +3,7 @@
 > - Always verify your machine will support the current setup without long term damage
 
 
-Crypto setup is used for monoreo crypto.
+## Crypto setup is used for monoreo crypto.
 
 - Wallet.key put your **public** wallet key here
 
