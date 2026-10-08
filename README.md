@@ -1,4 +1,4 @@
-Linux-public in a nutshell, is the scripts I use in production enviroment, feel free to use them at your own risk or be inspired.
+Linux-public in a nutshell, is the scripts I use in production enviroments, feel free to use them at your own risk or be inspired.
 
 ## General Summary of contents
 
