@@ -1,24 +1,13 @@
 #!/bin/bash
 set -e
 set -x
-
 source config.txt
-
-echo -e "${BLUE} "
-echo "ROOT-CHECK"
-echo -e "${WHITE} "
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${REDB} "
     echo "No Root User, user is $(whoami)."
     echo -e "${WHITE} "
     exit
-elif [[ $(/usr/bin/id -u) -eq 0 ]]; then
-    echo -e "${GREEN} "
-    echo "Root User Accepted, user is $(whoami)."
-    echo -e "${WHITE} "
-else
-    echo "Error when checking for root user"
 fi
 
 if [[ $git_token = "ACCESS-TOKEN" ]]; then
@@ -27,28 +16,23 @@ if [[ $git_token = "ACCESS-TOKEN" ]]; then
     exit
 fi
 
-echo -e "${BLUE} "
-echo "APT-UPGRADE-&-INSTALL"
-echo -e "${WHITE} "
 
 apt-get -y update
-apt-get -y install python3
-apt-get -y install python3-venv
+apt-get -y install python3 python3-venv
 apt-get -y autoremove
 sudo mkdir -p --mode=0755 /usr/share/keyrings && curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg | sudo tee /usr/share/keyrings/cloudflare-public-v2.gpg >/dev/null && echo 'deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main' | sudo tee /etc/apt/sources.list.d/cloudflared.list && sudo apt-get update && sudo apt-get install cloudflared
 
 cad_check=`dpkg -l | grep "caddy" | awk '{print $1}'`
-if [[ "$cad_check" = "ii" ]]; then
-    echo "CADDY ALREADY EXIST"
-else
+if [[ "$cad_check" != "ii" ]]; then
     apt -y install caddy
-    echo "{" > /etc/caddy/Caddyfile
-    echo "    http_port 58080" >> /etc/caddy/Caddyfile
-    echo "}" >> /etc/caddy/Caddyfile
+    cat > /etc/caddy/Caddyfile << EOL
+{
+    http_port 58080
+    auto_https off
+}
+EOL
     systemctl reload caddy
-	sleep 2
 fi
-
 
 
 for i in ${names[@]}; do
@@ -92,12 +76,10 @@ for i in ${names[@]}; do
     echo -e "${WHITE} "
 
 	runuser -l gitter-$i -c "git clone $git_url$i $dir/repo"
-	sleep 2
     echo """echo "GIT for $i" && cd $dir/repo && git fetch && git reset --hard && git pull --no-commit """ > $dir/auto/git.sh
 	chown gitter-$i:$i $dir/auto/git.sh
 	chmod 500 $dir/auto/git.sh
-	#runuse -l gitter-$i -c "crontab $dir/auto/git.sh"
-	sleep 1
+	
     runuser -l gitter-$i -c "bash $dir/auto/git.sh"
 
     echo -e "${BLUE} "
@@ -105,10 +87,8 @@ for i in ${names[@]}; do
     echo -e "${WHITE} "
 
     runuser -l runner-$i -c "python3 -m venv $dir/venv"	
-
     runuser -l runner-$i -c "$dir/venv/bin/python -m pip install -r $dir/repo/depend.txt"
 	runuser -l runner-$i -c "$dir/venv/bin/python -m pip install --upgrade pip"
-    sleep 2
 
     echo -e "${BLUE} "
     echo "CRON-FILES-$i"
@@ -153,13 +133,9 @@ ExecStart=$dir/venv/bin/python $dir/repo/wsgi.py
 WantedBy=multi-user.target
 EOL
    	cp $dir/auto/$service_name /etc/systemd/system/$server_name  
-
-	sleep 2
 	
     systemctl daemon-reload
 	systemctl enable $service_name
-
-	sleep 3	
     
     echo -e "${BLUE} "
     echo "CADDY"
@@ -167,8 +143,8 @@ EOL
 
     e=0
     for e in "${!names[@]}"; do
-	if [[ "${names[$e]}" = "${i}" ]]; then
-	    echo "Found $i at $e"
+	    if [[ "${names[$e]}" = "${i}" ]]; then
+	        echo "Found $i at $e"
             break
         fi
     done
@@ -179,18 +155,14 @@ $i:58080 { reverse_proxy ${names_port[$e]}
 }
 EOL
 	cat $dir/auto/caddy_config.txt >> /etc/caddy/Caddyfile 
-
-    sleep 1
     systemctl reload caddy 
-    sleep 2
 
     echo -e "${GREEN} "
         echo "$i STARTUP "
     echo -e "${WHITE} "
 
-    sleep 1
     systemctl start startup-$i.service
-    sleep 5
+    
     echo -e "${GREEN} "
         echo "$i Finished"
     echo -e "${WHITE} "

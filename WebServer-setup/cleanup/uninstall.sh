@@ -12,7 +12,6 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
 fi
 
 
-
 for i in ${names[@]}; do
     dir=$dir_base"/$i"
     killall -u gitter-$i
