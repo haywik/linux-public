@@ -10,6 +10,6 @@ Linux-public in a nutshell, is the scripts I use in production enviroments, feel
 
 ## Further infomation
 
-- I have never used AI in a published git repo, yes we have used it on script behind the scenes, but I will never present a script thats ai generator or heavy ai assisted, as you can just do that your self.
+- I have never used AI in a published git repo, yes we have used it on a random script behind the scenes, but I will never publish a script thats AI generated or heavy AI assisted, as you can just do that your self.
 
   
