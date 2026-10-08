@@ -1,12 +1,15 @@
-# linux
-My public utility scripts for linux
+Linux-public in a nutshell, is the scripts I use in production enviroment, feel free to use them at your own risk or be inspired.
 
-Contains anything i use a LOT, feel free to use anything here - does not have documentation yet.
-But feel free to ask questions or improvements.
+## General Summary of contents
 
+ - Crypto-setup is used for setting up a monero crypto miner.
 
-( Not built for public to use - may break systems if not understood)
+ - OS-setup is used to setting up a dietpi instance fully automated.
 
+ - WebServer-setup is used for setting up a fastapi webserver will auto repo pulling, cloudflare, caddy and user setup for multiple domains at once from one config.
 
+## Further infomation
 
-- NOTE, update dev.haywik.com
+- I have never used AI in a published git repo, yes we have used it on script behind the scenes, but I will never present a script thats ai generator or heavy ai assisted, as you can just do that your self.
+
+  
