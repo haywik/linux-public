@@ -1,5 +1,5 @@
 > [!WARNING]
-> - Always process with caution when installing crypto miners on your machine, some may be malious
+> - Always proceed with caution when installing crypto miners on your machine, some may be malious
 > - Always verify your machine will support the current setup without long term damage
 
 
