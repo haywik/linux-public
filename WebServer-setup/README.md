@@ -43,5 +43,5 @@ If caddy is not installed, it will be.
 The caddy config file will be auto setup based on the subdomains within the config.txt file.
 Caddy will not use https as the fastapi files dont nativley support it, this is what cloudflare is used for.
  - git
- - 
+   
 The git repo is auto pulled every 10 minutes, it does not restart the fastapi systemd.
