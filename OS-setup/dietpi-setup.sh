@@ -3,6 +3,8 @@ set -x
 export primary_user="haywik"
 
 export DEBIAN_FRONTEND=noninteractive
+
+### --- This section will be minimised to take up less lines
 mkdir -p /etc/apt/keyrings/
 curl -fsSL https://pkgs.zabbly.com/key.asc -o /etc/apt/keyrings/zabbly.asc
 sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-stable.sources
@@ -15,6 +17,7 @@ Architectures: $(dpkg --print-architecture)
 Signed-By: /etc/apt/keyrings/zabbly.asc
 
 EOF'
+### ---
 
 apt-get -y update
 apt-get -y upgrade
