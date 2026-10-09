@@ -19,11 +19,14 @@ EOF'
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-apt-get install -y unattended-upgrades ufw incus incus-ui-canonical openssh-sftp-server ovn-central ovn-host nftables
+apt-get install -y unattended-upgrades incus incus-ui-canonical openssh-sftp-server ovn-central ovn-host nftables
 
+### --- UFW becoming depreicated as it causes issues with Incus network rules, will migrating to nftables
+apt-get install -y ufw
 ufw allow ssh
 ufw allow 8443
 ufw --force enable
+### ---
 
 dpkg-reconfigure -plow unattended-upgrades
 incus config unset core.https_address
