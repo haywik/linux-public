@@ -1,5 +1,5 @@
 > [!NOTE]
-> `dietpi_setup` Firewall migration from UFW to nftables in progress
+> `dietpi_setup` Firewall migration from UFW to nftables is currently in effect.
 
 > [!WARNING] 
 > - Don't remove unused config lines in `dietpi.txt`
