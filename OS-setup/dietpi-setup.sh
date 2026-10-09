@@ -1,8 +1,8 @@
 #!/bin/bash
 set -x
-export DEBIAN_FRONTEND=noninteractive
 export primary_user="haywik"
 
+export DEBIAN_FRONTEND=noninteractive
 mkdir -p /etc/apt/keyrings/
 curl -fsSL https://pkgs.zabbly.com/key.asc -o /etc/apt/keyrings/zabbly.asc
 sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-stable.sources
@@ -19,7 +19,7 @@ EOF'
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-apt-get install -y unattended-upgrades ufw incus incus-ui-canonical openssh-sftp-server ovn-central ovn-host nftables dropbear
+apt-get install -y unattended-upgrades ufw incus incus-ui-canonical openssh-sftp-server ovn-central ovn-host nftables
 
 ufw allow ssh
 ufw allow 8443
@@ -65,5 +65,4 @@ EOL
 
 chmod 755 /home/$primary_user/.first_logon 
 
-apt-get remove sshd
 systemctl restart dropbear
