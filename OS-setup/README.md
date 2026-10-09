@@ -1,3 +1,6 @@
+> [!NOTE]
+> File updates in progess
+
 > [!WARNING] 
 > - Don't remove unused config lines in `dietpi.txt`
 > - Don't edit `AUTO_SETUP_NET_HOSTNAME` or `AUTO_SETUP_GLOBAL_PASSWORD` in `dietpi.txt`
