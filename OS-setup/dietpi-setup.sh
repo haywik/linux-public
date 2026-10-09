@@ -49,7 +49,10 @@ echo "INCUS Setup"
 incus admin init
 incus config set core.https_address :8443
 sudo systemctl restart incus
-sudo ufw allow in on incusbr0
+
+### --- To be removed
+sudo ufw allow in on incusbr0 
+### ---
 
 sed -i '\|bash /home/$primary_user/.first_logon|d' /home/$primary_user/.bashrc
 rm /home/$primary_user/.first_logon
