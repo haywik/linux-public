@@ -4,6 +4,8 @@ export primary_user="haywik"
 
 export DEBIAN_FRONTEND=noninteractive
 
+mkdir -p /etc/apt/keyrings/
+curl -fsSL https://pkgs.zabbly.com/key.asc -o /etc/apt/keyrings/zabbly.asc
 echo -e "Enabled: yes\nTypes: deb\nURIs: https://pkgs.zabbly.com/incus/stable\nSuites: $(. /etc/os-release && echo ${VERSION_CODENAME})\nComponents: main\nArchitectures: $(dpkg --print-architecture)\nSigned-By: /etc/apt/keyrings/zabbly.asc" > /etc/apt/sources.list.d/zabbly-incus-stable.sources
 
 apt-get -y update
