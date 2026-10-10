@@ -11,13 +11,6 @@ apt-get -y upgrade
 apt-get -y dist-upgrade
 apt-get install -y unattended-upgrades incus incus-ui-canonical openssh-sftp-server ovn-central ovn-host nftables
 
-### --- UFW becoming depreicated as it causes issues with Incus network rules, will migrating to nftables
-apt-get install -y ufw
-ufw allow ssh
-ufw allow 8443
-ufw --force enable
-### ---
-
 dpkg-reconfigure -plow unattended-upgrades
 incus config unset core.https_address
 
@@ -49,10 +42,6 @@ echo "INCUS Setup"
 incus admin init
 incus config set core.https_address :8443
 sudo systemctl restart incus
-
-### --- To be removed
-sudo ufw allow in on incusbr0 
-### ---
 
 sed -i '\|bash /home/$primary_user/.first_logon|d' /home/$primary_user/.bashrc
 rm /home/$primary_user/.first_logon
