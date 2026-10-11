@@ -26,7 +26,7 @@ runuser -l $primary_user -c "mkdir -p /home/$primary_user/.ssh/ && echo >> /home
 
 echo 'alias aptdo="sudo apt-get update && sudo apt-get -y upgrade"' >> /home/$primary_user/.bashrc   #populates a custom alias cmd and imports the post setup script
 echo "bash /home/$primary_user/.first_logon" >> /home/$primary_user/.bashrc
-runuser -l $primary_user -c "curl https://raw.githubusercontent.com/haywik/linux-public/refs/heads/dev/OS-setup/post-setup.sh -o /home/$primary_user/.first_logon"
+runuser -l $primary_user -c "curl https://raw.githubusercontent.com/haywik/linux-public/refs/heads/main/OS-setup/post-setup.sh -o /home/$primary_user/.first_logon"
 
 echo "$primary_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers   # makes the users sudo password less, setups incus trusted group and remote ssh keys
 usermod -aG incus-admin $primary_user
