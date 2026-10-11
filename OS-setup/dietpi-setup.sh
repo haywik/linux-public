@@ -35,8 +35,7 @@ cat > /home/$primary_user/.first_logon << EOL
 #!/bin/bash
 read -p "New Hostname:" hostName
 export hostName=$(echo "$hostName" | xargs)
-sudo /boot/dietpi/func/change_hostname $hostName
-
+sudo /boot/dietpi/func/change_hostname "$hostName"
 echo "New Root Password"
 sudo passwd root
 echo "Disabling password logins for the dietpi user"
