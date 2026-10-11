@@ -33,7 +33,8 @@ echo 'alias aptdo="sudo apt-get update && sudo apt-get -y upgrade"' >> /home/$pr
 echo "bash /home/$primary_user/.first_logon" >> /home/$primary_user/.bashrc
 cat > /home/$primary_user/.first_logon << EOL
 #!/bin/bash
-read -p "New Hostname:" hostName 
+read -p "New Hostname:" hostName
+export hostName=$(echo "$hostName" | xargs)
 sudo /boot/dietpi/func/change_hostname $hostName
 
 echo "New Root Password"
