@@ -1,0 +1,37 @@
+#!/bin/bash
+
+read "File name: " name
+read "Description: " des
+read "Work Dir: " dir
+read "User: " user
+read "Group: " group
+read "Execute: " exe
+
+mkdir -p $dir/setup_log
+
+cat > /etc/systemd/system/${name}.service  << EOL
+[Unit]
+Description=$des
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+WorkingDirectory=$dir
+Type=simple
+User=$user
+Group=$i
+Restart=always
+RestartSec=20
+TimeoutStartSec=10
+ExecStart=$exe
+
+[Install]
+WantedBy=multi-user.target
+EOL
+
+cp /etc/systemd/system/${name}.service $dir/setup_log/${name}.service
+
+echo "Done, and added to the systemd directory."
+echo "/etc/systemd/system/${name}.service" >> made.log
+
+cat /etc/systemd/system/${name}.service
