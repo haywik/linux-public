@@ -32,25 +32,7 @@ echo 'alias aptdo="sudo apt-get update && sudo apt-get -y upgrade"' >> /home/$pr
 
 echo "bash /home/$primary_user/.first_logon" >> /home/$primary_user/.bashrc
 cat > /home/$primary_user/.first_logon << EOL
-#!/bin/bash
-read -p "New Hostname:" hostName
-export hostName=$(echo "$hostName" | xargs)
-echo "$hostName" > /home/$primary_user/hostname.temp
-sudo /boot/dietpi/func/change_hostname $(cat /home/$primary_user/hostname.temp)
-rm /home/$primary_user/hostname.temp
-echo "New Root Password"
-sudo passwd root
-echo "Disabling password logins for the dietpi user"
-sudo passwd -l dietpi
-echo "INCUS Setup"
-incus admin init
-incus config set core.https_address :8443
-sudo systemctl restart incus
 
-sed -i '\|bash /home/$primary_user/.first_logon|d' /home/$primary_user/.bashrc
-rm /home/$primary_user/.first_logon
-
-EOL
 
 chmod 755 /home/$primary_user/.first_logon 
 
