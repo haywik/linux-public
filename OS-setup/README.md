@@ -1,6 +1,3 @@
-> [!NOTE]
-> `dietpi_setup` Firewall update migration from UFW to nftables is currently in effect.
-
 > [!WARNING] 
 > - Don't remove unused config lines in `dietpi.txt`
 > - Don't edit `AUTO_SETUP_NET_HOSTNAME` or `AUTO_SETUP_GLOBAL_PASSWORD` in `dietpi.txt`
@@ -33,3 +30,4 @@
 - `dietpi-setup.sh` Contains the main script which sets up the server.
 - `dietpi.txt` Is the config used by DietPi OS just without all the comments and notes.
 - `post-setup.sh` Script that runs on the primary user on first login, to finalize any configs. 
+- `nftables-firewall.conf` Contains the default firewall policy for a barebone protection.
