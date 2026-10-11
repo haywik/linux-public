@@ -14,7 +14,7 @@ echo "INCUS Setup"
 incus admin init
 incus config set core.https_address :8443
 
-sudo systemctl restart incus
-
 sed -i '\|bash /home/$USER/.first_logon|d' /home/$USER/.bashrc
 rm /home/$USER/.first_logon
+
+sudo reboot
