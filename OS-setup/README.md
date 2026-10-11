@@ -22,3 +22,14 @@
 ### On the first primary user login
 - A prompt to modify the hostname and root password is shown.
 - The dietpi user is disabled from password login.
+
+<br>
+
+### Description of each file
+
+- `archive` Contains all old scripts from previous versions, is used a reference for newer scripts sometimes.
+- `README.md` Well your looking at it.
+- `authorized_keys` Paste your Public-SSH keys into the when following the setup.
+- `dietpi-setup.sh` Contains the main script which sets up the server.
+- `dietpi.txt` Is the config used by DietPi OS just without all the comments and notes.
+- `post-setup.sh` Script that runs on the primary user on first login, to finalize any configs. 
