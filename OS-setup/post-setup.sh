@@ -1,5 +1,5 @@
 #!/bin/bash
-export branch="main"
+export branch="dev"
 
 read -p "New Hostname:" hostName
 export hostName=$(echo "$hostName" | xargs)
