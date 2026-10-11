@@ -3,8 +3,6 @@
 read -p "File name: " name
 read -p "Description: " des
 read -p "Work Dir: " dir
-read -p "User: " user
-read -p "Group: " group
 read -p "Execute: " exe
 
 mkdir -p $dir/setup_log
@@ -18,8 +16,7 @@ After=network-online.target
 [Service]
 WorkingDirectory=$dir
 Type=simple
-User=$user
-Group=$group
+DynamicUser=yes
 Restart=always
 RestartSec=20
 TimeoutStartSec=10
