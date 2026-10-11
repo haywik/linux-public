@@ -11,7 +11,7 @@
 2. Copy `dietpi.txt` and `authorized_keys` into `/boot` on the Raspberry Pis **_root_ partion**. 
 3. Add all your Public-SSH keys to `authorized_keys`.
 4. Boot the server, with a network connection.
-5. Using **SSH** login to the primary user.
+5. Login to the primary user. (SSH or hardware terminal)
 
 <br>
 
