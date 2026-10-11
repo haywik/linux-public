@@ -1,11 +1,11 @@
 #!/bin/bash
 
-read "File name: " name
-read "Description: " des
-read "Work Dir: " dir
-read "User: " user
-read "Group: " group
-read "Execute: " exe
+read -p "File name: " name
+read -p "Description: " des
+read -p "Work Dir: " dir
+read -p "User: " user
+read -p "Group: " group
+read -p "Execute: " exe
 
 mkdir -p $dir/setup_log
 
