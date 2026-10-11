@@ -15,6 +15,7 @@ After=network-online.target
 
 [Service]
 WorkingDirectory=$dir
+ReadWritePaths=$dir
 Type=simple
 DynamicUser=yes
 Restart=always
