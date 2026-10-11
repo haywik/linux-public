@@ -10,4 +10,4 @@ apt-get install -y unattended-upgrades nano git
 dpkg-reconfigure -plow unattended-upgrades
 
 git clone https://github.com/haywik/linux-public
-chmod +x ./linux-public/Inucs-setup/systemd-generator.sh
+chmod +x ./linux-public/Incus-setup/systemd-generator.sh
