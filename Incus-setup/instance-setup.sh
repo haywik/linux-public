@@ -6,7 +6,7 @@ export branch="main"
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-apt-get install -y unattended-upgrades nano git
+apt-get install -y unattended-upgrades nano git python3-pip
 dpkg-reconfigure -plow unattended-upgrades
 
 git clone https://github.com/haywik/linux-public
