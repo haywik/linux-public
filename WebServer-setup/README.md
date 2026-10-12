@@ -1,6 +1,6 @@
 WebServer-setup is used to setup a fulling functioning webserver with fastapi and a cloudflare tunnel.
 
-## Description of each file
+### Description of each file
 
 - config.txt
 Place your config in here, your git token and the website urls.

@@ -1,6 +1,22 @@
 > [!WARNING] 
 > - Don't remove unused config lines in `dietpi.txt`
 > - Don't edit `AUTO_SETUP_NET_HOSTNAME` or `AUTO_SETUP_GLOBAL_PASSWORD` in `dietpi.txt`
+<br>
+
+OS-setup contains scripts and other files used to further setup a DietPi OS install, following the commands usally executed on first setup.
+
+<br>
+
+> ### Description of each file
+>
+> - `archive` Contains all old scripts from previous versions, is used a reference for newer scripts sometimes.
+> - `README.md` Well your looking at it.
+> - `authorized_keys` Paste your Public-SSH keys into the when following the setup.
+> - `dietpi-setup.sh` Contains the main script which sets up the server.
+> - `dietpi.txt` Is the config used by DietPi OS just without all the comments and notes.
+> - `post-setup.sh` Script that runs on the primary user on first login, to finalize any configs.
+> - `nftables-firewall.conf` Contains the default firewall policy for a barebone protection.
+
 
 ## How to setup
 
