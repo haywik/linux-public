@@ -3,7 +3,7 @@
 > - Don't edit `AUTO_SETUP_NET_HOSTNAME` or `AUTO_SETUP_GLOBAL_PASSWORD` in `dietpi.txt`
 <br>
 
-OS-setup contains scripts and other files used to further setup a DietPi OS install, following the commands usally executed on first setup.
+OS-setup contains scripts and other files used to further setup a DietPi OS install, inspired by the commands always executed on a first setup after first boot.
 
 > ## General Summary of contents
 >
