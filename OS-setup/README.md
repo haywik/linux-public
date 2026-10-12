@@ -5,8 +5,6 @@
 
 OS-setup contains scripts and other files used to further setup a DietPi OS install, following the commands usally executed on first setup.
 
-<br>
-
 > ## General Summary of contents
 >
 > - `archive` Contains all old scripts from previous versions, is used a reference for newer scripts sometimes.
