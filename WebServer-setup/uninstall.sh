@@ -8,13 +8,13 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
 fi
 
 for i in ${names[@]}; do
-    dir=$dir_base"/$i"
+    dir=$install_directory"/$i"
     killall -u gitter-$i
     killall -u runner-$i
     groupdel $i
     userdel -f gitter-$i
     userdel -f runner-$i
-    rm -rf "$dir/" #scary!
+    rm -rf "$dir" #
     systemctl stop startup-$i.service
     systemctl disable startup-$i.service
     rm /etc/systemd/system/startup-$i.service

@@ -33,11 +33,10 @@ EOL
 fi
 
 
-for i in ${names[@]}; do
+for i in ${domain[@]}; do
 	# Defind key varibles
-    dir=$dir_base"/$i"
+    dir=$install_directory"/$i"
     service_name="startup-$i.service"
-
     # Find the index of $i within the lise
 	index=0
     for index in "${!names[@]}"; do 
@@ -66,7 +65,8 @@ for i in ${names[@]}; do
     chmod -R 770 $dir
 
     #Setup Git Repo
-    runuser -l gitter-$i -c "git clone $git_url$i $dir/repo"
+    git_url="https://$git_user:${domain_token[$index]}@github.com/$git_user/$i"
+    runuser -l gitter-$i -c "git clone $git_url $dir/repo"
     echo "cd $dir/repo && git fetch && git reset --hard && git pull" > $dir/auto/git.sh
 
     #Setup Crontab
@@ -127,7 +127,7 @@ WantedBy=multi-user.target
 EOL
 
 	#Setup Caddy reverse proxy
-    echo -e "$i:58080 { reverse_proxy ${names_port[$e]}\n}" >> /etc/caddy/Caddyfile 
+    echo -e "$i:58080 { reverse_proxy ${domain_port[$index]}\n}" >> /etc/caddy/Caddyfile 
     systemctl reload caddy 
     
 	#Start up the instance
