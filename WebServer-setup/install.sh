@@ -35,48 +35,53 @@ fi
 
 
 for i in ${names[@]}; do
-    echo -e "${BLUE} "
-    echo "Starting setup for $i"
-    echo -e "${WHITE} "
-
+	# Defind key varibles
     dir=$dir_base"/$i"
     service_name="startup-$i.service"
 
-   if id "gitter-$i" >/dev/null 2>&1; then
-        echo -e "${REDB}"
-        echo "$i has already been installed, skipping..."
-        echo -e "${WHITE}"
+    # Find the index of $i within the lise
+	index=0
+    for index in "${!names[@]}"; do 
+        if [[ "${names[$index]}" = "${i}" ]]; then
+	        echo "Found $i at $index"
+            break
+        fi
+    done
+
+	# Check if the domain has been intalled already
+	if id "gitter-$i" >/dev/null 2>&1; then
         continue
-    else
-        echo "$i has not been installed, installing..."
     fi
 
     #Makes basic directories, group and users.
-    mkdir -p $dir
     groupadd $i
     useradd "runner-$i" --system -M -s "/bin/bash" -N -d $dir -G $i
     useradd "gitter-$i" --system -M -s "/bin/bash" -N -d $dir -G $i
     mkdir -p $dir/repo
     mkdir -p $dir/auto
     mkdir -p $dir/venv
+    mkdir -p $dir/log
 
-    #Git Auto pull Repo setup
+    #Apply tempory permissions to the whole directory
+    chown -R :$i $dir
+    chmod -R 770 $dir
+
+    #Setup Git Repo
     runuser -l gitter-$i -c "git clone $git_url$i $dir/repo"
-    echo """echo "GIT for $i" && cd $dir/repo && git fetch && git reset --hard && git pull --no-commit """ > $dir/auto/git.sh
+    echo "cd $dir/repo && git fetch && git reset --hard && git pull" > $dir/auto/git.sh
 
-    #Python Virutal Enviroment
-    chown -R runner-$i $dir/venv
-    chmod 700 $dir/venv
-    runuser -l runner-$i -c "bash << EOL   #Sets up the virtual enviroment 
-python3 -m venv "$dir/venv" 
-"$dir/venv/bin/python" -m pip install -r "$dir/repo/requirements.txt" 
-"$dir/venv/bin/python" -m pip install --upgrade pip
+    #Setup Crontab
+    echo '*/10 * * * * $dir/auto/git.sh' > $dir/auto/crontab.txt   #To be updated to a modern webhook
+    crontab -u gitter-$i $dir/auto/crontab.txt
+
+    #Python Virtual Enviroment
+    runuser -l runner-$i -c "bash << EOL
+		python3 -m venv "$dir/venv"
+		"$dir/venv/bin/python" -m pip install -r "$dir/repo/requirements.txt" 
+		"$dir/venv/bin/python" -m pip install --upgrade pip
     EOL
 
-    echo '*/10 * * * * $dir/auto/git.sh' > $dir/auto/cron_file.txt   #To be updated to a modern webhook
-
-    ## Log files
-    mkdir -p $dir/log
+    ## Log Files
     date >> $dir/log/runner.log
     date >> $dir/log/gitter.log
 
@@ -96,19 +101,13 @@ python3 -m venv "$dir/venv"
     chmod 600 $dir/log/gitter.log
 
     # Auto Final Permissions
-    chown gitter-$i:$i $dir/cron_file.txt
-    chmod 400 $dir/cron_file.txt
+    chown gitter-$i:$i $dir/crontab.txt
+    chmod 400 $dir/crontab.txt
     chown gitter-$i:$i $dir/git.sh
     chmod 500 $dir/git.sh
-					# Upt to here on update, need to double check perms
-    # Repo First Pull
-    runuser -l gitter-$i -c "bash $dir/auto/git.sh"
-    # Initialise the cron 
-    crontab -u gitter-$i $dir/auto/cron_file.txt
-
 
     #Daemon Boot
-    cat > $dir/auto/$service_name << EOL
+    cat > /etc/systemd/system/$service_name << EOL
 [Unit]
 Description=Automatic starting script for $i generated on $date
 Wants=network-online.target
@@ -128,36 +127,14 @@ ExecStart=$dir/repo/run.sh
 WantedBy=multi-user.target
 EOL
 
-    cp $dir/auto/$service_name /etc/systemd/system/$service_name    
-    echo -e "${BLUE} "
-    echo "Caddy Reverse Proxy $i"
-    echo -e "${WHITE} "
-
-    e=0
-    for e in "${!names[@]}"; do
-	    if [[ "${names[$e]}" = "${i}" ]]; then
-	        echo "Found $i at $e"
-            break
-        fi
-    done
-
-    echo -e "$i:58080 { reverse_proxy ${names_port[$e]}\n}" > $dir/auto/caddy_config.txt
-    cat $dir/auto/caddy_config.txt >> /etc/caddy/Caddyfile 
+	#Setup Caddy reverse proxy
+    echo -e "$i:58080 { reverse_proxy ${names_port[$e]}\n}" >> /etc/caddy/Caddyfile 
     systemctl reload caddy 
-
-    echo -e "${GREEN} "
-    echo "$i STARTUP"
-    echo -e "${WHITE} "
-
+    
+	#Start up the instance
     systemctl daemon-reload
     systemctl start startup-$i.service
     systemctl enable $service_name
-
-
-    echo -e "${GREEN} "
-    echo "$i Finished"
-    echo -e "${WHITE} "
-
 done
 
 
