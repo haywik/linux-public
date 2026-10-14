@@ -5,22 +5,21 @@ source config.txt
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     echo -e "${REDB} "
-    echo "No Root User, user is $(whoami)."
+    echo "Script exiting... Run as root."
     echo -e "${WHITE} "
     exit
 fi
 
 if [[ $git_token = "ACCESS-TOKEN" ]]; then
-    echo e "${REDB} DEFAULT SETUP NOT CHANAGED"
+    echo -e "${REDB}" 
+    echo "Script existing... Change the access token in config.txt."
     echo -e "${WHITE}"
     exit
 fi
 
-
 apt-get -y update
-apt-get -y install python3 python3-venv
-apt-get -y autoremove
-sudo mkdir -p --mode=0755 /usr/share/keyrings && curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg | sudo tee /usr/share/keyrings/cloudflare-public-v2.gpg >/dev/null && echo 'deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main' | sudo tee /etc/apt/sources.list.d/cloudflared.list && sudo apt-get update && sudo apt-get install cloudflared
+apt-get -y install python3 python3-venv python3-pip
+mkdir -p --mode=0755 /usr/share/keyrings && curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg | sudo tee /usr/share/keyrings/cloudflare-public-v2.gpg >/dev/null && echo 'deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main' | sudo tee /etc/apt/sources.list.d/cloudflared.list && sudo apt-get update && sudo apt-get install cloudflared
 
 cad_check=`dpkg -l | grep "caddy" | awk '{print $1}'`
 if [[ "$cad_check" != "ii" ]]; then
@@ -37,18 +36,19 @@ fi
 
 for i in ${names[@]}; do
     echo -e "${BLUE} "
-    echo "Start of $i"
+    echo "Starting setup for $i"
     echo -e "${WHITE} "
 
     dir=$dir_base"/$i"
-	service_name="startup-$i.service"
+    service_name="startup-$i.service"
 
-	if id "gitter-$i" >/dev/null 2>&1; then
-        echo -e "${REDB} User already exists, skipping current user"
+   if id "gitter-$i" >/dev/null 2>&1; then
+        echo -e "${REDB}"
+        echo "$i has already been installed, skipping..."
         echo -e "${WHITE}"
         continue
     else
-        echo "USER DOESNT EXIST - good"
+        echo "$i has not been installed, installing..."
     fi
 
     mkdir -p $dir
@@ -68,35 +68,35 @@ for i in ${names[@]}; do
     mkdir -p /etc/systemd/user/
     runuser -l gitter-$i -c "mkdir -p $dir/log"    
 
-    date >> $dir/log/runner.log
-    date >> $dir/log/gitter.log
+    date >> $dir/log/runner.log   #perm issues
+    date >> $dir/log/gitter.log   # perm issue
 
     echo -e "${BLUE} "
-    echo "GIT-FOR-$i"
+    echo "Starting the Git Repo setup for $i"
     echo -e "${WHITE} "
 
-	runuser -l gitter-$i -c "git clone $git_url$i $dir/repo"
+    runuser -l gitter-$i -c "git clone $git_url$i $dir/repo"
     echo """echo "GIT for $i" && cd $dir/repo && git fetch && git reset --hard && git pull --no-commit """ > $dir/auto/git.sh
-	chown gitter-$i:$i $dir/auto/git.sh
-	chmod 500 $dir/auto/git.sh
+    chown gitter-$i:$i $dir/auto/git.sh
+    chmod 500 $dir/auto/git.sh
 	
     runuser -l gitter-$i -c "bash $dir/auto/git.sh"
 
     echo -e "${BLUE} "
-    echo "VENV-SETUP"
+    echo "Start the python virutal enviroment setup for $i"
     echo -e "${WHITE} "
 
     runuser -l runner-$i -c "python3 -m venv $dir/venv"	
-    runuser -l runner-$i -c "$dir/venv/bin/python -m pip install -r $dir/repo/depend.txt"
-	runuser -l runner-$i -c "$dir/venv/bin/python -m pip install --upgrade pip"
+    runuser -l runner-$i -c "$dir/venv/bin/python -m pip install -r $dir/repo/requirements.txt"
+    runuser -l runner-$i -c "$dir/venv/bin/python -m pip install --upgrade pip"
 
     echo -e "${BLUE} "
-    echo "CRON-FILES-$i"
+    echo "Setting up remote git to local git auto sync for $i"
     echo -e "${WHITE} "
 
-    runuser -l gitter-$i -c "echo '*/10 * * * * $dir/auto/git.sh' > '$dir/auto/cron_file.txt'"
+    runuser -l gitter-$i -c "echo '*/10 * * * * $dir/auto/git.sh' > '$dir/auto/cron_file.txt'"   #To be updated to a modern webhook
     crontab -u gitter-$i $dir/auto/cron_file.txt
-
+							# --- Up to here on updates
     echo -e "${BLUE} "
     echo "PERMISSIONS-FOR-$i"
     echo -e "${WHITE} "
