@@ -30,7 +30,6 @@ if [[ "$cad_check" != "ii" ]]; then
     auto_https off
 }
 EOL
-    systemctl reload caddy
 fi
 
 
