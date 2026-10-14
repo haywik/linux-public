@@ -18,7 +18,7 @@ if [[ $git_token = "ACCESS-TOKEN" ]]; then
 fi
 
 apt-get -y update
-apt-get -y install python3 python3-venv python3-pip
+apt-get -y install python3 python3-venv python3-pip acl
 mkdir -p --mode=0755 /usr/share/keyrings && curl -fsSL https://pkg.cloudflare.com/cloudflare-public-v2.gpg | sudo tee /usr/share/keyrings/cloudflare-public-v2.gpg >/dev/null && echo 'deb [signed-by=/usr/share/keyrings/cloudflare-public-v2.gpg] https://pkg.cloudflare.com/cloudflared any main' | sudo tee /etc/apt/sources.list.d/cloudflared.list && sudo apt-get update && sudo apt-get install cloudflared
 
 cad_check=`dpkg -l | grep "caddy" | awk '{print $1}'`
@@ -51,71 +51,66 @@ for i in ${names[@]}; do
         echo "$i has not been installed, installing..."
     fi
 
+    #Makes basic directories, group and users.
     mkdir -p $dir
-
     groupadd $i
     useradd "runner-$i" --system -M -s "/bin/bash" -N -d $dir -G $i
     useradd "gitter-$i" --system -M -s "/bin/bash" -N -d $dir -G $i
+    mkdir -p $dir/repo
+    mkdir -p $dir/auto
+    mkdir -p $dir/venv
 
-    
-    chown -R gitter-$i:$i $dir
-    chmod -R 770 $dir
-	
-    runuser -l gitter-$i -c "mkdir -p $dir/repo"
-    runuser -l runner-$i -c "mkdir -p $dir/venv"
-    runuser -l gitter-$i -c "mkdir -p $dir/auto"
-	
-    mkdir -p /etc/systemd/user/
-    runuser -l gitter-$i -c "mkdir -p $dir/log"    
-
-    date >> $dir/log/runner.log   #perm issues
-    date >> $dir/log/gitter.log   # perm issue
-
-    echo -e "${BLUE} "
-    echo "Starting the Git Repo setup for $i"
-    echo -e "${WHITE} "
-
+    #Git Auto pull Repo setup
     runuser -l gitter-$i -c "git clone $git_url$i $dir/repo"
     echo """echo "GIT for $i" && cd $dir/repo && git fetch && git reset --hard && git pull --no-commit """ > $dir/auto/git.sh
-    chown gitter-$i:$i $dir/auto/git.sh
-    chmod 500 $dir/auto/git.sh
-	
+
+    #Python Virutal Enviroment
+    chown -R runner-$i $dir/venv
+    chmod 700 $dir/venv
+    runuser -l runner-$i -c "bash << EOL   #Sets up the virtual enviroment 
+python3 -m venv "$dir/venv" 
+"$dir/venv/bin/python" -m pip install -r "$dir/repo/requirements.txt" 
+"$dir/venv/bin/python" -m pip install --upgrade pip
+    EOL
+
+    echo '*/10 * * * * $dir/auto/git.sh' > $dir/auto/cron_file.txt   #To be updated to a modern webhook
+
+    ## Log files
+    mkdir -p $dir/log
+    date >> $dir/log/runner.log
+    date >> $dir/log/gitter.log
+
+    #Venv Final Permissions
+    chown -R runner-$i:$i $dir/venv
+    chmod 500 -R $dir/venv
+   
+    #Repo Final Permissions
+    chown -R gitter-$i:$i $dir/repo
+    chmod 640 -R $dir/repo
+    setfacl -m -u:"runner-$i":rx $dir/repo/run.sh
+
+    # Log Final Permissions
+    chown runner-$i:$i $dir/log/runner.log
+    chmod 600 $dir/log/runner.log
+    chown gitter-$i:$i $dir/log/gitter.log
+    chmod 600 $dir/log/gitter.log
+
+    # Auto Final Permissions
+    chown gitter-$i:$i $dir/cron_file.txt
+    chmod 400 $dir/cron_file.txt
+    chown gitter-$i:$i $dir/git.sh
+    chmod 500 $dir/git.sh
+					# Upt to here on update, need to double check perms
+    # Repo First Pull
     runuser -l gitter-$i -c "bash $dir/auto/git.sh"
-
-    echo -e "${BLUE} "
-    echo "Start the python virutal enviroment setup for $i"
-    echo -e "${WHITE} "
-
-    runuser -l runner-$i -c "python3 -m venv $dir/venv"	
-    runuser -l runner-$i -c "$dir/venv/bin/python -m pip install -r $dir/repo/requirements.txt"
-    runuser -l runner-$i -c "$dir/venv/bin/python -m pip install --upgrade pip"
-
-    echo -e "${BLUE} "
-    echo "Setting up remote git to local git auto sync for $i"
-    echo -e "${WHITE} "
-
-    runuser -l gitter-$i -c "echo '*/10 * * * * $dir/auto/git.sh' > '$dir/auto/cron_file.txt'"   #To be updated to a modern webhook
+    # Initialise the cron 
     crontab -u gitter-$i $dir/auto/cron_file.txt
-							# --- Up to here on updates
-    echo -e "${BLUE} "
-    echo "PERMISSIONS-FOR-$i"
-    echo -e "${WHITE} "
 
-    # chowm --->
-	chown -R runner-$i:$i $dir/venv
-    #for runner --->
 
-    chmod 540 -R $dir/venv/*  
-    chmod 750 -R $dir/repo/*
-	chgrp -R $i $dir
-
-    echo -e "${BLUE} "
-    echo "SYSTEMD-RUNNER-$i"
-    echo -e "${WHITE} "
-
+    #Daemon Boot
     cat > $dir/auto/$service_name << EOL
 [Unit]
-Description=$i wsgi.py auto startup, made on $date
+Description=Automatic starting script for $i generated on $date
 Wants=network-online.target
 After=network-online.target
 
@@ -127,18 +122,15 @@ Group=$i
 Restart=always
 RestartSec=20
 TimeoutStartSec=10
-ExecStart=$dir/venv/bin/python $dir/repo/wsgi.py
+ExecStart=$dir/repo/run.sh
 
 [Install]
 WantedBy=multi-user.target
 EOL
-   	cp $dir/auto/$service_name /etc/systemd/system/$server_name  
-	
-    systemctl daemon-reload
-	systemctl enable $service_name
-    
+
+    cp $dir/auto/$service_name /etc/systemd/system/$service_name    
     echo -e "${BLUE} "
-    echo "CADDY"
+    echo "Caddy Reverse Proxy $i"
     echo -e "${WHITE} "
 
     e=0
@@ -149,30 +141,25 @@ EOL
         fi
     done
 
-    cat > $dir/auto/caddy_config.txt << EOL
-	
-$i:58080 { reverse_proxy ${names_port[$e]}
-}
-EOL
-	cat $dir/auto/caddy_config.txt >> /etc/caddy/Caddyfile 
+    echo -e "$i:58080 { reverse_proxy ${names_port[$e]}\n}" > $dir/auto/caddy_config.txt
+    cat $dir/auto/caddy_config.txt >> /etc/caddy/Caddyfile 
     systemctl reload caddy 
 
     echo -e "${GREEN} "
-        echo "$i STARTUP "
+    echo "$i STARTUP"
     echo -e "${WHITE} "
 
+    systemctl daemon-reload
     systemctl start startup-$i.service
-    
+    systemctl enable $service_name
+
+
     echo -e "${GREEN} "
-        echo "$i Finished"
+    echo "$i Finished"
     echo -e "${WHITE} "
 
 done
 
-
-echo -e "${BLUE} "
-echo "END-OF-FILE"
-echo -e "${WHITE} "
 
 
 

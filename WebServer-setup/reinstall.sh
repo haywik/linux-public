@@ -10,4 +10,4 @@ bash git update-index --skip-worktree ./config.txt
 git fetch
 git reset --hard 
 git pull
-sudo bash web_server_full.sh
+sudo bash install.sh
