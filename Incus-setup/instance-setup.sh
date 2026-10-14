@@ -1,7 +1,8 @@
 #!/bin/bash
 set -x
-export DEBIAN_FRONTEND=noninteractive
+export primary_user="haywik"
 export branch="main"
+export DEBIAN_FRONTEND=noninteractive
 
 apt-get -y update
 apt-get -y upgrade
@@ -11,3 +12,5 @@ dpkg-reconfigure -plow unattended-upgrades
 
 git clone https://github.com/haywik/linux-public
 chmod +x ./linux-public/Incus-setup/systemd-generator.sh
+
+useradd "$primary_user" -U -G sudo -m -s /bin/bash -c "primary user" 
