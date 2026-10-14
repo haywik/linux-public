@@ -10,9 +10,9 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     exit
 fi
 
-if [[ $git_token = "ACCESS-TOKEN" ]]; then
+if [[ $git_user = "GIT-USERNAME" ]]; then
     echo -e "${REDB}" 
-    echo "Script existing... Change the access token in config.txt."
+    echo "Script existing... Change the git varibles in config.txt."
     echo -e "${WHITE}"
     exit
 fi
