@@ -74,7 +74,7 @@ for i in ${domain[@]}; do
     crontab -u gitter-$i $dir/auto/crontab.txt
 
     #Python Virtual Enviroment
-    runuser -l runner-$i -c "bash << EOL
+    runuser -l runner-$i -c bash << EOL
 		python3 -m venv "$dir/venv"
 		"$dir/venv/bin/python" -m pip install -r "$dir/repo/requirements.txt" 
 		"$dir/venv/bin/python" -m pip install --upgrade pip
