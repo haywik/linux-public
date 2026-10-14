@@ -14,4 +14,4 @@ chmod +x ./linux-public/Incus-setup/systemd-generator.sh
 
 useradd "$primary_user" -U -G sudo -m -s /bin/bash -c "primary user" 
 su haywik
-runuser -l haywik -c "cd ~/ && git clone git clone https://github.com/haywik/linux-public -b $branch linux-public"
+runuser -l haywik -c "cd ~/ && git clone https://github.com/haywik/linux-public -b $branch linux-public"
