@@ -2,6 +2,6 @@ domain=( "dev.example.com" "central.example.com" "example.com" )
 domain_port=( "127.0.25.6:9005" "127.0.25.3:9005" "127.0.25.2:9005" )
 
 git_user="GIT-USERNAME" 
-git_token="ACCESS-TOKEN"
+git_token=( "ACCESS-TOKEN" "ACCESS-TOKEN" "ACCESS-TOKEN" )
 
 install_directory="/opt/haywik/web"
