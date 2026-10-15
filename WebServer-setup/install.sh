@@ -71,8 +71,9 @@ for i in ${domain[@]}; do
     echo "cd $dir/repo && git fetch && git reset --hard && git pull" > $dir/auto/git.sh
 
     #Setup Crontab
-    echo '*/10 * * * * $dir/auto/git.sh' > $dir/auto/crontab.txt   #To be updated to a modern webhook
+    runuser -u gitter-$i -- echo '*/10 * * * * $dir/auto/git.sh' > $dir/auto/crontab.txt   #To be updated to a modern webhook
     crontab -u gitter-$i $dir/auto/crontab.txt
+    rm $dir/auto/crontab.txt
 
     #Python Virtual Enviroment
     runuser -u runner-$i -- python3 -m venv "$dir/venv"
@@ -97,8 +98,6 @@ for i in ${domain[@]}; do
     chmod 600 $dir/log/gitter.log
 
     # Auto Final Permissions
-    chown gitter-$i:$i $dir/crontab.txt
-    chmod 400 $dir/crontab.txt
     chown gitter-$i:$i $dir/git.sh
     chmod 500 $dir/git.sh
 
