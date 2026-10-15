@@ -89,8 +89,8 @@ for i in ${domain[@]}; do
    
     #Repo Final Permissions
     chgrp -R "$i" "$dir/repo"
-    chmod 640 -R $dir/repo/*
-	
+    chmod 750 -R $dir/repo/*
+
     # Log Final Permissions
     chown runner-$i:$i $dir/log/runner.log
     chmod 600 $dir/log/runner.log
