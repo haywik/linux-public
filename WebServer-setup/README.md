@@ -18,7 +18,7 @@ WebServer-setup is used to setup a fulling functioning webserver with fastapi an
 ## How to setup
 1. Clone the repo,`git clone https://github.com/haywik/linux-public
 2. Go to this project `cd linux-public/WebServer-setup
-3.Edit the config to your preference `nano config.txt`
+3. Edit the config to your preference `nano config.txt`
 
 
 ---
