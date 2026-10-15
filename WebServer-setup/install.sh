@@ -88,8 +88,8 @@ for i in ${domain[@]}; do
     chmod 500 -R $dir/venv/*
    
     #Repo Final Permissions
+    chgrp -R "$i" "$dir/repo"
     chmod 640 -R $dir/repo/*
-    chmod +x $dir/repo/run.sh
 	
     # Log Final Permissions
     chown runner-$i:$i $dir/log/runner.log
