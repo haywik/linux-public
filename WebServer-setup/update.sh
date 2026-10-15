@@ -9,4 +9,5 @@ config=$(cat config.txt)
 git reset --hard
 git pull
 echo $config > config.txt
+config=""
 sudo bash install.sh
