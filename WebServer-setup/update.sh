@@ -5,5 +5,8 @@ if [[ $(/usr/bin/id -u) -e 0 ]]; then
 fi
 
 sudo bash uninstall.sh
-git update-index --skip-worktree ./config.txt && git fetch && git pull
+config=$(cat config.txt)
+git reset --hard
+git pull
+echo $config > config.txt
 sudo bash install.sh
