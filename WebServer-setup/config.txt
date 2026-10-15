@@ -1,7 +1,7 @@
-domain=( "dev.example.com" "central.example.com" "example.com" )
-domain_port=( "127.0.25.6:9005" "127.0.25.3:9005" "127.0.25.2:9005" )
+domain=( "dev.example.com" "example.com" )
+domain_port=( "127.3.2.1:58081" "127.3.2.1:58082" )
 
-domain_token=( "ACCESS-TOKEN" "ACCESS-TOKEN" "ACCESS-TOKEN" )
+domain_token=( "Git-Read-Access-Token" "Git-Read-Access-Token" )
 git_user="GIT-USERNAME" 
 
 install_directory="/opt/haywik/web"
