@@ -86,11 +86,9 @@ for i in ${domain[@]}; do
     echo "" >> $dir/log/gitter.log
 
     #Venv Final Permissions
-    chown -R runner-$i:$i $dir/venv
     chmod 500 -R $dir/venv/*
    
     #Repo Final Permissions
-    chown -R gitter-$i:$i $dir/repo
     chmod 640 -R $dir/repo/*
     setfacl -m -u:"runner-$i":rx $dir/repo/run.sh
 
