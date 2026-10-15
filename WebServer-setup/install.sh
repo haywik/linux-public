@@ -81,8 +81,8 @@ for i in ${domain[@]}; do
 	runuser -u runner-$i -- "$dir/venv/bin/python" -m pip install --upgrade pip
 
     ## Primary Permissions
-    chgrp -R "$i" "$dir"
-    chmod 750 -R "$dir/*"
+    chgrp -R "$i" $dir/*
+    chmod 750 -R $dir/*
 
     ## Log Files
     echo "" >> $dir/log/runner.log
