@@ -2,16 +2,21 @@ WebServer-setup is used to setup a fulling functioning webserver with fastapi an
 
 > ## General Summary of contents
 > 
-> - config.txt Place your config in here, your git token and the website urls.
+> - config.txt Place your config in here, your git token and the domain urls.
 >
-> - reinitalise.sh This deletes any old setups and reininstall the whole setup from scratch.
-> 
-> - web_server_full.sh Will install the setup, can also use reinitalise.sh for the first time.
+> - `install.sh` Will install the setup, can also use reinitalise.sh for the first time.
 >
-> - cleanup/uninstall.sh Will uninstall the current setup.
+> - `uninstall.sh` Will uninstall the current setup.
 >
-> - cleanup/update_all_gits.sh Will pull the latest from all gits inside config.txt.
+> `git-updater.sh` Will pull the latest from all gits inside config.txt.
 
+## How to setup
+1. Clone the repo,`git clone https://github.com/haywik/linux-public
+2. Go to this project `cd linux-public/WebServer-setup
+3.Edit the config to your preference `nano config.txt`
+
+
+---
 ## How the setup is structured
 
 For each subdomain/URL you enter in `config.txt` under the `names` section it will make.

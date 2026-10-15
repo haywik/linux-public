@@ -1,11 +1,6 @@
 #!/bin/bash
-source ./../config.txt
-
-set -e
-set -x
-
+source ./config.txt
 for i in ${names[@]}; do
-    echo "Loop for $i"
     dir=$dir_base"/$i"
     sudo runuser -l "gitter-$i" -c "bash $dir/auto/git.sh"
 done
