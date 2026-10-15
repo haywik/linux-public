@@ -1,5 +1,6 @@
 #!/bin/bash
-if [[ $(/usr/bin/id -u) -e 0 ]]; then
+
+if [[ $(/usr/bin/id -u) -eq 0 ]]; then
     echo "Exiting... Avoid running this script as root."
     exit
 fi
