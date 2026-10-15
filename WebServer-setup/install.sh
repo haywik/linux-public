@@ -63,7 +63,8 @@ for i in ${domain[@]}; do
 
     #Apply tempory permissions to the whole directory
     chown -R :$i $dir
-    chmod -R 770 $dir
+    chmod  770 -R $dir/*
+	chmod 770 -R $dir
 
     #Setup Git Repo
     git_url="https://$git_user:${domain_token[$index]}@github.com/$git_user/$i"
