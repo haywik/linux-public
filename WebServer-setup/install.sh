@@ -80,6 +80,10 @@ for i in ${domain[@]}; do
 	runuser -u runner-$i -- "$dir/venv/bin/python" -m pip install -r "$dir/repo/requirements.txt" 
 	runuser -u runner-$i -- "$dir/venv/bin/python" -m pip install --upgrade pip
 
+    ## Primary Permissions
+    chgrp -R "$i" "$dir/*"
+    chmod 750 -R "$dir/*"
+
     ## Log Files
     echo "" >> $dir/log/runner.log
     echo "" >> $dir/log/gitter.log
@@ -87,10 +91,6 @@ for i in ${domain[@]}; do
     #Venv Final Permissions
     chmod 500 -R $dir/venv/*
    
-    #Repo Final Permissions
-    chgrp -R "$i" "$dir/repo"
-    chmod 750 -R $dir/repo/*
-
     # Log Final Permissions
     chown runner-$i:$i $dir/log/runner.log
     chmod 600 $dir/log/runner.log
