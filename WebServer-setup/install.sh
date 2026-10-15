@@ -82,7 +82,8 @@ for i in ${domain[@]}; do
 
     ## Primary Permissions
     chgrp -R "$i" $dir/*
-    chmod 750 -R $dir/*
+    chmod 750 -R $dir/* #All Under the dir
+    chmod 750 -R $dir   # The dir it self
 
     ## Log Files
     echo "" >> $dir/log/runner.log
