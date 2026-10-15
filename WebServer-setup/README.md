@@ -10,6 +10,13 @@ WebServer-setup is used to setup a fulling functioning webserver with fastapi an
 >
 > `git-updater.sh` Will pull the latest from all gits inside config.txt.
 
+## How to setup
+1. Clone the repo,`git clone https://github.com/haywik/linux-public
+2. Go to this project `cd linux-public/WebServer-setup
+3.Edit the config to your preference `nano config.txt`
+
+
+---
 ## How the setup is structured
 
 For each subdomain/URL you enter in `config.txt` under the `names` section it will make.
