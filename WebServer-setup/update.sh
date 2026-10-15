@@ -5,7 +5,8 @@ if [[ $(/usr/bin/id -u) -e 0 ]]; then
 fi
 
 sudo bash uninstall.sh
-config=$(cat config.txt)
+config=$(cat config.txt; printf '.')
+config=${var%.}
 git reset --hard
 git pull
 echo $config > config.txt
