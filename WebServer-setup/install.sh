@@ -75,7 +75,7 @@ for i in ${domain[@]}; do
     crontab -u gitter-$i $dir/auto/crontab.txt
 
     #Python Virtual Enviroment
-    runuser -u runner-$i -c -- \ 
+    runuser -u runner-$i -- \ 
 		python3 -m venv "$dir/venv"
 	
 	runuser -u runner-$i -- \
