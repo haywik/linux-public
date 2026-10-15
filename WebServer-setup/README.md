@@ -1,3 +1,6 @@
+> [!NOTE]
+> - This README file is currently undergoing a redo.
+
 WebServer-setup is used to setup a fulling functioning webserver with fastapi and a cloudflare tunnel.
 
 > ## General Summary of contents
@@ -8,7 +11,9 @@ WebServer-setup is used to setup a fulling functioning webserver with fastapi an
 >
 > - `uninstall.sh` Will uninstall the current setup.
 >
-> `git-updater.sh` Will pull the latest from all gits inside config.txt.
+> - `update.sh` Triggers a uninstall, pulls any new repo updates and then installs.
+>
+> - `git-updater.sh` Will pull the latest from all gits inside config.txt.
 
 ## How to setup
 1. Clone the repo,`git clone https://github.com/haywik/linux-public
@@ -19,9 +24,10 @@ WebServer-setup is used to setup a fulling functioning webserver with fastapi an
 ---
 ## How the setup is structured
 
-For each subdomain/URL you enter in `config.txt` under the `names` section it will make.
-Under `config.txt` you also to set the port/ip the fastapi web servers are running on, each index of the `names` and `names-port` must be the same, for example the second domain in the `names` must have its port/ip in the second postion in the `names-port` file.
+-For each subdomain/URL you enter in `config.txt` under the `domain` section it will make.
+-Under `config.txt` you also to set the port/ip the fastapi web servers are running on, each index of the `names` and `names-port` must be the same, for example the second domain in the `names` must have its port/ip in the second postion in the `names-port` file.
 
+## How the backend works
 - A user for pulling and updating existing files
 - A user for running the fastapi wsgi.py file
 Both user live under the same group, but the runner cannot edit nor can the git user execute.
