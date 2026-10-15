@@ -40,8 +40,8 @@ for i in ${domain[@]}; do
     service_name="startup-$i.service"
     # Find the index of $i within the lise
 	index=0
-    for index in "${!names[@]}"; do 
-        if [[ "${names[$index]}" = "${i}" ]]; then
+    for index in "${!domain[@]}"; do 
+        if [[ "${domain[$index]}" = "${i}" ]]; then
 	        echo "Found $i at $index"
             break
         fi
