@@ -2,15 +2,13 @@ WebServer-setup is used to setup a fulling functioning webserver with fastapi an
 
 > ## General Summary of contents
 > 
-> - config.txt Place your config in here, your git token and the website urls.
+> - config.txt Place your config in here, your git token and the domain urls.
 >
-> - reinitalise.sh This deletes any old setups and reininstall the whole setup from scratch.
-> 
-> - web_server_full.sh Will install the setup, can also use reinitalise.sh for the first time.
+> - `install.sh` Will install the setup, can also use reinitalise.sh for the first time.
 >
-> - cleanup/uninstall.sh Will uninstall the current setup.
+> - `uninstall.sh` Will uninstall the current setup.
 >
-> - cleanup/update_all_gits.sh Will pull the latest from all gits inside config.txt.
+> `git-updater.sh` Will pull the latest from all gits inside config.txt.
 
 ## How the setup is structured
 
