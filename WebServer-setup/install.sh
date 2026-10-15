@@ -90,6 +90,9 @@ for i in ${domain[@]}; do
     echo "" >> $dir/log/runner.log
     echo "" >> $dir/log/gitter.log
 
+    #Repo Final Permissions
+    chown gitter-$i $dir/repo
+
     #Venv Final Permissions
     chmod 500 -R $dir/venv/*
    
