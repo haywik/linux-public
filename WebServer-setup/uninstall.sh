@@ -7,7 +7,7 @@ if [[ $(/usr/bin/id -u) -ne 0 ]]; then
     exit 1
 fi
 
-for i in ${names[@]}; do
+for i in ${domain[@]}; do
     dir=$install_directory"/$i"
     killall -u gitter-$i
     killall -u runner-$i
