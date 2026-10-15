@@ -1,5 +1,5 @@
 #!/bin/bash
-set -x
+set -u
 source ./config.txt
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
