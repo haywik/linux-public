@@ -82,8 +82,8 @@ for i in ${domain[@]}; do
     EOL
 
     ## Log Files
-    date >> $dir/log/runner.log
-    date >> $dir/log/gitter.log
+    echo "" >> $dir/log/runner.log
+    echo "" >> $dir/log/gitter.log
 
     #Venv Final Permissions
     chown -R runner-$i:$i $dir/venv
@@ -109,7 +109,7 @@ for i in ${domain[@]}; do
     #Daemon Boot
     cat > /etc/systemd/system/$service_name << EOL
 [Unit]
-Description=Automatic starting script for $i generated on $date
+Description=Automatic starting script for $i 
 Wants=network-online.target
 After=network-online.target
 
