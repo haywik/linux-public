@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 set -x
+set -u
 source config.txt
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
@@ -86,11 +87,11 @@ for i in ${domain[@]}; do
 
     #Venv Final Permissions
     chown -R runner-$i:$i $dir/venv
-    chmod 500 -R $dir/venv
+    chmod 500 -R $dir/venv/*
    
     #Repo Final Permissions
     chown -R gitter-$i:$i $dir/repo
-    chmod 640 -R $dir/repo
+    chmod 640 -R $dir/repo/*
     setfacl -m -u:"runner-$i":rx $dir/repo/run.sh
 
     # Log Final Permissions
