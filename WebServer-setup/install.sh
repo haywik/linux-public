@@ -67,7 +67,8 @@ for i in ${domain[@]}; do
 
     #Setup Git Repo
     git_url="https://$git_user:${domain_token[$index]}@github.com/$git_user/$i"
-    runuser -l gitter-$i -c "git clone $git_url $dir/repo"
+    runuser -l gitter-$i -- git clone $git_url $dir/repo
+    runuser -l gitter-$i  -- git config --global --add safe.directory $dir/repo
     echo "cd $dir/repo && git fetch && git reset --hard && git pull" > $dir/auto/git.sh
 
     #Setup Crontab
