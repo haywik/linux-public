@@ -90,8 +90,8 @@ for i in ${domain[@]}; do
    
     #Repo Final Permissions
     chmod 640 -R $dir/repo/*
-    setfacl -m -u:"runner-$i":rx $dir/repo/run.sh
-
+    chmod +x $/dir/repo/run.sh
+	
     # Log Final Permissions
     chown runner-$i:$i $dir/log/runner.log
     chmod 600 $dir/log/runner.log
@@ -119,7 +119,7 @@ Group=$i
 Restart=always
 RestartSec=20
 TimeoutStartSec=10
-ExecStart=$dir/repo/run.sh
+ExecStart=bash $dir/repo/run.sh
 
 [Install]
 WantedBy=multi-user.target
