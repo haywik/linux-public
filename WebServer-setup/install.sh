@@ -98,8 +98,8 @@ for i in ${domain[@]}; do
     chmod 600 $dir/log/gitter.log
 
     # Auto Final Permissions
-    chown gitter-$i:$i $dir/git.sh
-    chmod 500 $dir/git.sh
+    chown gitter-$i:$i $dir/auto/git.sh
+    chmod 500 $dir/auto/git.sh
 
     #Daemon Boot
     cat > /etc/systemd/system/$service_name << EOL
