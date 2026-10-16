@@ -1,11 +1,13 @@
 > [!NOTE]
-> - This README file is currently undergoing a redo.
+> - You must have Password less SUDO
+> - This setup script assumes your fastapi directory layout follows a set standard.
 
-WebServer-setup is used to setup a fulling functioning webserver with fastapi and a cloudflare tunnel.
+WebServer-setup is used to setup a fulling functioning webserver with fastapi, caddy and cloudflare tunnel.
+This setup assumes a similar setup found under the [Fastapi Webserver][https://github.com/haywik/minimal-fastapi-webserver].
 
 > ## General Summary of contents
 > 
-> - config.txt Place your config in here, your git token and the domain urls.
+> - `config.txt` Place your config in here, your git token and the domain urls.
 >
 > - `install.sh` Will install the setup, can also use reinitalise.sh for the first time.
 >
@@ -16,22 +18,18 @@ WebServer-setup is used to setup a fulling functioning webserver with fastapi an
 > - `git-updater.sh` Will pull the latest from all gits inside config.txt.
 
 ## How to setup
-1. Clone the repo,`git clone https://github.com/haywik/linux-public
+1. Clone the repo,`git clone https://github.com/haywik/linux-public`
 2. Go to this project `cd linux-public/WebServer-setup`
 3. Edit the config to your preference `nano config.txt`
-
+4. Within the config under `domain` add your URL domains, same for the IP port its bined to, add your read only Git token key.
+5. To first run this setup run `bash update.sh` 
 
 ---
-## How the setup is structured
+## How it works under the hood
 
--For each subdomain/URL you enter in `config.txt` under the `domain` section it will make.
--Under `config.txt` you also to set the port/ip the fastapi web servers are running on, each index of the `names` and `names-port` must be the same, for example the second domain in the `names` must have its port/ip in the second postion in the `names-port` file.
-
-## How the backend works
-- A user for pulling and updating existing files
-- A user for running the fastapi wsgi.py file
-Both user live under the same group, but the runner cannot edit nor can the git user execute.
-
+- The script makes a user called `runner-domain-name.com` this user is used for running the `run.sh` file and has no write access to anything.
+- The script also makes user `gitter-domain-name.com` this user is used for updating the code, has full write,read and execute access. However cannot read or write to the python virutal enviroment.
+-
 All files are stored in /opt/haywik/web
 Then its /opt/haywik/web/cheese.example.com
 or       /opt/haywik/web/eggs.example.com
