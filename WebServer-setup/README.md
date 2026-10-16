@@ -28,14 +28,14 @@ This setup assumes a similar setup found under the [Fastapi Webserver][https://g
 ## How it works under the hood
 
 - The script makes a user called `runner-domain-name.com` this user is used for running the `run.sh` file and has no write access to anything.
-- The script also makes user `gitter-domain-name.com` this user is used for updating the code, has full write,read and execute access. However cannot read or write to the python virutal enviroment.
--
-All files are stored in /opt/haywik/web
-Then its /opt/haywik/web/cheese.example.com
-or       /opt/haywik/web/eggs.example.com
+- The script also makes user `gitter-domain-name.com` this user is used for updating the code, has full write,read and execute access. However cannot read or write to the python virtual environment.
+  
+- All files are stored in $install_directory under the `config.txt`
+- Then its $install_directory/cheese.example.com
+- or for example$install_directory/eggs.example.com
 
-Within each domains directory.
-There is a python virtual enviroment made (.venv), which the runner uses, the runner cannot edit the venv, the git user cannot read or write .venv.
+- Within each domains directory.
+= There is a python virtual environment made (venv), which the runner uses, the runner cannot edit the venv, the git user cannot read or write to venv.
 
 The setup will then make a `systemd` startup script, which runs at system start, called `startup-chesse.example.com.service.
 
