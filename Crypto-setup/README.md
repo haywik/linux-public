@@ -5,8 +5,6 @@
 Crypto-setup is used for debian based operating systems, to setup a monero miner.
 
 > ## General Summary of contents
->
-> - `wallet.key` put your **public** wallet key here
 > 
 > - `xmrig-source.build.sh` Removes any old instances, then builds xmrig from source
 >
