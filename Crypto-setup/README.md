@@ -16,7 +16,8 @@ Crypto-setup is used for debian based operating systems, to setup a monero miner
 1. Clone this git repo `git clone https://github.com/haywik/linux-public`
 2. Move into the git repo `cd linux-public`
 3. Allow executing scripts, `chmod +x [Your script of choosing]`
-4. Execute via the, `./run.sh` or use systemd `sudo systemctl status monero-miner.serice`
+4. Add your waller key to 'nano wallet.key' (make it if it doesn't exist)
+5. Execute via the, `./run.sh` or use systemd `sudo systemctl status monero-miner.serice`
 
 ## Other notes
 - When any of the scripts are ran they assume youve configed then within the .sh files, (by deafult they work all good).
