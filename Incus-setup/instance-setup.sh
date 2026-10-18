@@ -7,7 +7,7 @@ export DEBIAN_FRONTEND=noninteractive
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-apt-get install -y unattended-upgrades nano git python3-pip
+apt-get install -y unattended-upgrades nano git python3-pip wget
 apt-get -y autoremove
 dpkg-reconfigure -plow unattended-upgrades
 
