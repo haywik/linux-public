@@ -31,7 +31,8 @@ git clone https://github.com/haywik/linux-public
 nano config.txt
 ```
 7. Within the config under `domain` add your URL domains, same for the IP port its bined to, add your read only Git token key.
-8. To first run this setup run 
+<br>
+9. To first run this setup run 
 ```bash
 bash update.sh
 ```
