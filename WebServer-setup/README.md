@@ -33,7 +33,7 @@ nano config.txt
 4. Within the config under `domain` add your URL domains, same for the IP port its bined to, add your read only Git token key.
 <br>
 
-- To first run this setup run 
+To setup run 
 ```bash
 bash update.sh
 ```
@@ -49,7 +49,7 @@ bash update.sh
 - or for example$install_directory/eggs.example.com
 
 - Within each domains directory.
-= There is a python virtual environment made (venv), which the runner uses, the runner cannot edit the venv, the git user cannot read or write to venv.
+- There is a python virtual environment made (venv), which the runner uses, the runner cannot edit the venv, the git user cannot read or write to venv.
 
 The setup will then make a `systemd` startup script, which runs at system start, called `startup-chesse.example.com.service.
 
