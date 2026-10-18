@@ -22,17 +22,17 @@ This setup assumes a similar setup found under the [FastAPI Webserver](https://g
 ```bash
 git clone https://github.com/haywik/linux-public
 ```
-3. Go to this project
+2. Go to this project
 ```bash
  cd linux-public/WebServer-setup
 ```
-5. Edit the config to your preference
+3. Edit the config to your preference
 ```bash
 nano config.txt
 ```
-7. Within the config under `domain` add your URL domains, same for the IP port its bined to, add your read only Git token key.
+4. Within the config under `domain` add your URL domains, same for the IP port its bined to, add your read only Git token key.
 <br>
-9. To first run this setup run 
+5. To first run this setup run 
 ```bash
 bash update.sh
 ```
