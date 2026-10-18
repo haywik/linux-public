@@ -46,7 +46,7 @@ bash update.sh
   
 - All files are stored in $install_directory under the `config.txt`
 - Then its $install_directory/cheese.example.com
-- or for example$install_directory/eggs.example.com
+- or for example $install_directory/eggs.example.com
 
 - Within each domains directory.
 - There is a python virtual environment made (venv), which the runner uses, the runner cannot edit the venv, the git user cannot read or write to venv.
