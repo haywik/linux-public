@@ -18,7 +18,7 @@ This setup assumes a similar setup found under the [FastAPI Webserver](https://g
 > - `git-updater.sh` Will pull the latest from all gits inside config.txt.
 
 ## How to setup
-1. Clone the repo,```bash git clone https://github.com/haywik/linux-public```
+1. Clone the repo,```git clone https://github.com/haywik/linux-public```
 2. Go to this project `cd linux-public/WebServer-setup`
 3. Edit the config to your preference `nano config.txt`
 4. Within the config under `domain` add your URL domains, same for the IP port its bined to, add your read only Git token key.
