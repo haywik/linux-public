@@ -2,13 +2,13 @@ Linux-public in a nutshell, is the scripts I use in production enviroments, feel
 
 ## General Summary of contents
 
- - `Crypto-setup` is used for setting up a monero crypto miner.
+ - `Crypto-setup` is used for setting up a monero crypto miner via xmrig.
 
- - `Incus-setup` is used to setup Incus containers.
+ - `Incus-setup` is used to setup Incus based LXC containers.
 
  - `OS-setup` is used to setting up a dietpi instance fully automated.
 
- - `WebServer-setup` is used for setting up a FastAPI webserver will auto repo pulling, cloudflare, caddy and user setup for multiple domains at once from one config.
+ - `WebServer-setup` is used for setting up a FastAPI, caddy and auto repo web server.
 
 ## Questions or Improvements
 I really want to know how you run your linux server, so please let me know.
