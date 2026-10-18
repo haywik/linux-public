@@ -8,5 +8,8 @@ Incus-setup is used to help and assist in the setup of Incus cotainers primarly,
 
 ## How to setup
 
-run `curl https://raw.githubusercontent.com/haywik/linux-public/refs/heads/main/Incus-setup/instance-setup.sh | bash`
+run 
+```bash
+curl https://raw.githubusercontent.com/haywik/linux-public/refs/heads/main/Incus-setup/instance-setup.sh | bash
+```
 
