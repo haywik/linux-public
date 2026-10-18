@@ -30,7 +30,7 @@ git clone https://github.com/haywik/linux-public
 ```bash
 nano config.txt
 ```
-4. Within the config under `domain` add your URL domains, same for the IP port its bined to, add your read only Git token key.
+4. Within the config under `domain` add your URL domains, same for the IP port its bined to, add your read only Git token key. <br>
 5. To first run this setup run 
 ```bash
 bash update.sh
