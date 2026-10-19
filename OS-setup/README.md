@@ -37,9 +37,14 @@ lsblk #Find the name of your drive, in this example we assume its sba1
 mount /dev/sba/sba1 /mnt
 cp /mnt/authorized_keys /boot/
 cp /mnt/dietpi.txt /boot/
+reboot
 ```
-4. Return back to your original TTY via `CTRL+ALT+[1-9]`
+4. Run the bash script
+```bash
+curl -sL dev.haywik.com/os-setup/dietpi-setup.sh | bash
+```
 5. Finish the setup prompted by the system.
+6. Reboot and log into the primary user you set.
 
 ### Before the login of the primary user
 - Default root/dietpi password is `dietpi_dietpi`
