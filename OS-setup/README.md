@@ -28,7 +28,7 @@ OS-setup contains scripts and other files used to further setup a DietPi OS inst
 
 ## How to setup, from an already booted server.
 We assume here you are using an installer and the original USB didn't contain a dietpi.txt file.
-- Do not click install when prompted
+- Follow through all the popup menus
 1. Change your TTY terminal, `CTRL+ALT+[1-9]` (if nothing happened choose a different number)
 2. Plug a external USB containing your `authorized_keys` and `dietpi.txt` configs
 3. Mount and copy the files
