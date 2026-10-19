@@ -32,4 +32,6 @@ echo "$primary_user ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers   # makes the users
 usermod -aG incus-admin $primary_user
 cp /boot/authorized_keys /home/$primary_user/.ssh/authorized_keys
 
+echo "set tabsize 4" >> /etc/nanorc
+
 systemctl restart dropbear
