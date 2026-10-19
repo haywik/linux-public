@@ -17,7 +17,7 @@ incus admin init
 incus config set core.https_address=[::]:8443
 
 echo "Final firewall setup"
-sudo curl https://raw.githubusercontent.com/haywik/linux-public/refs/heads/$branch/OS-setup/nftables-firewall.conf -o /etc/nftables.conf
+sudo curl -sL https://raw.githubusercontent.com/haywik/linux-public/refs/heads/$branch/OS-setup/nftables-firewall.conf -o /etc/nftables.conf
 sudo echo $(sudo nft list ruleset) >> /etc/nftables.conf
 
 sudo nft -f /etc/nftables.conf
