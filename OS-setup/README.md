@@ -16,7 +16,7 @@ OS-setup contains scripts and other files used to further setup a DietPi OS inst
 > - `nftables-firewall.conf` Contains the default firewall policy for a barebone protection.
 
 
-## How to setup
+## How to setup, before booting the server.
 
 1. Flash the RaspberryPi with DietPi OS.
 2. Copy `dietpi.txt` and `authorized_keys` into `/boot` on the Raspberry Pis **_root_ partion**. 
@@ -25,6 +25,21 @@ OS-setup contains scripts and other files used to further setup a DietPi OS inst
 5. Login to the primary user. (SSH or hardware terminal)
 
 <br>
+
+## How to setup, from an already booted server.
+We assume here you are using an installer and the original USB didn't contain a dietpi.txt file.
+- Do not click install when prompted
+1. Change your TTY terminal, `CTRL+ALT+[1-9]` (if nothing happened choose a different number)
+2. Plug a external USB containing your `authorized_keys` and `dietpi.txt` configs
+3. Mount and copy the files
+```bash
+lsblk #Find the name of your drive, in this example we assume its sba1
+mount /dev/sba/sba1 /mnt
+cp /mnt/authorized_keys /boot/
+cp /mnt/dietpi.txt /boot/
+```
+4. Return back to your original TTY via `CTRL+ALT+[1-9]`
+5. Finish the setup prompted by the system.
 
 ### Before the login of the primary user
 - Default root/dietpi password is `dietpi_dietpi`
