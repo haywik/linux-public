@@ -7,8 +7,7 @@ Incus-setup is used to help and assist in the setup of Incus cotainers primarly,
 > - `systemd-generator` Sets up a systemd file for a service.
 
 ## How to setup
-
-run 
+Quick start cmd.
 ```bash
 curl https://raw.githubusercontent.com/haywik/linux-public/refs/heads/main/Incus-setup/instance-setup.sh | bash
 ```
