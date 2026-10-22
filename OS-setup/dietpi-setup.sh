@@ -11,7 +11,7 @@ echo -e "Enabled: yes\nTypes: deb\nURIs: https://pkgs.zabbly.com/incus/stable\nS
 apt-get -y update
 apt-get -y upgrade
 apt-get -y dist-upgrade
-apt-get install -y unattended-upgrades incus incus-ui-canonical openssh-sftp-server ovn-central ovn-host nftables git
+apt-get install -y unattended-upgrades incus incus-ui-canonical openssh-sftp-server ovn-central ovn-host nftables git tcpdump
 
 dpkg-reconfigure -plow unattended-upgrades   #ensures the server will stay up to date
 incus config unset core.https_address        #ensures the incus ui port has not auto setup from the apt install
