@@ -18,13 +18,13 @@ incus config set core.https_address=[::]:8443
 
 echo "Final firewall setup"
 sudo curl -sL https://raw.githubusercontent.com/haywik/linux-public/refs/heads/$branch/OS-setup/nftables-firewall.conf -o /etc/nftables.conf
-sudo su root
-nft list ruleset >> /etc/nftables.conf
-exit
 
-sudo nft -f /etc/nftables.conf
-sudo systemctl start nftables
-sudo systemctl enable nftables
+#nft list ruleset >> /etc/nftables.conf
+
+
+#sudo nft -f /etc/nftables.conf
+#sudo systemctl start nftables
+#sudo systemctl enable nftables
 
 echo "Scipt clean up"
 sed -i '\|bash /home/$USER/.first_logon|d' /home/$USER/.bashrc
